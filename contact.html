@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — ColorcraftAI</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--green:#1a7f5a;--green-light:#e8f5ef;--text:#141414;--muted:#6b6b6b;--border:rgba(0,0,0,0.08);--bg:#fafaf8;--white:#ffffff}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+nav{position:sticky;top:0;z-index:100;background:rgba(250,250,248,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 40px;display:flex;align-items:center;height:60px}
+.nav-logo{font-family:'Fraunces',serif;font-size:20px;font-weight:500;color:var(--text);text-decoration:none}
+.nav-logo em{color:var(--green);font-style:italic}
+.nav-right{margin-left:auto}
+.btn-green{font-size:14px;color:#fff;padding:8px 20px;border-radius:8px;background:var(--green);text-decoration:none;font-weight:500}
+.hero{text-align:center;padding:64px 24px 48px}
+.badge{display:inline-block;font-size:12px;color:var(--green);background:var(--green-light);padding:4px 12px;border-radius:99px;margin-bottom:20px;font-weight:500}
+h1{font-family:'Fraunces',serif;font-size:44px;font-weight:500;margin-bottom:12px}
+.hero p{font-size:17px;color:var(--muted);max-width:480px;margin:0 auto}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:900px;margin:0 auto 80px;padding:0 24px}
+.card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:32px}
+.card h2{font-family:'Fraunces',serif;font-size:22px;font-weight:500;margin-bottom:20px}
+.ci{display:flex;gap:14px;align-items:flex-start;margin-bottom:20px}
+.ci-icon{width:40px;height:40px;border-radius:10px;background:var(--green-light);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.ci-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px}
+.ci-val{font-size:14px;font-weight:500}
+.ci-val a{color:var(--green);text-decoration:none}
+.ci-val .sub{font-size:12px;color:var(--muted);font-weight:400;margin-top:2px}
+.form-group{margin-bottom:16px}
+label{font-size:13px;font-weight:500;display:block;margin-bottom:6px}
+input,textarea,select{width:100%;border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-size:14px;font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);outline:none;transition:border .15s}
+input:focus,textarea:focus,select:focus{border-color:var(--green);background:var(--white)}
+textarea{min-height:100px;resize:vertical}
+.btn-submit{width:100%;background:var(--green);color:#fff;border:none;border-radius:10px;padding:13px;font-size:15px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;margin-top:4px;transition:background .2s}
+.btn-submit:hover{background:#155f44}
+.btn-submit:disabled{background:#aaa;cursor:not-allowed}
+.success-box{display:none;background:var(--green-light);border-radius:12px;padding:24px;text-align:center;margin-top:16px}
+.success-box h3{font-family:'Fraunces',serif;font-size:20px;color:var(--green);margin-bottom:6px}
+.success-box p{font-size:14px;color:#2d6b4a;margin:0}
+footer{padding:28px 40px;border-top:1px solid var(--border);background:var(--white);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-links{display:flex;gap:22px;flex-wrap:wrap}
+.footer-links a{font-size:13px;color:var(--muted);text-decoration:none}
+.footer-links a:hover{color:var(--text)}
+.footer-copy{font-size:12px;color:var(--muted)}
+@media(max-width:640px){.grid{grid-template-columns:1fr}h1{font-size:32px}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="index.html">Colorcraft<em>AI</em></a>
+  <div class="nav-right"><a class="btn-green" href="index.html#pricing">Start free trial</a></div>
+</nav>
+
+<div class="hero">
+  <div class="badge">Get in touch</div>
+  <h1>We'd love to hear from you</h1>
+  <p>Whether you want to start your free trial or have questions — we're here.</p>
+</div>
+
+<div class="grid">
+  <!-- Contact info -->
+  <div class="card">
+    <h2>Contact details</h2>
+
+    <div class="ci">
+      <div class="ci-icon">✉️</div>
+      <div>
+        <div class="ci-label">Email</div>
+        <div class="ci-val"><a href="mailto:info@colorcraftai.in">info@colorcraftai.in</a></div>
+      </div>
+    </div>
+
+    <div class="ci">
+      <div class="ci-icon">📍</div>
+      <div>
+        <div class="ci-label">Office address</div>
+        <div class="ci-val">
+          ColorcraftAI<br>
+          Plot No. NH-131A, NIT 5<br>
+          Faridabad, Haryana – 121001<br>
+          India
+        </div>
+      </div>
+    </div>
+
+    <div class="ci">
+      <div class="ci-icon">📞</div>
+      <div>
+        <div class="ci-label">Phone</div>
+        <div class="ci-val"><a href="tel:+917011235411">+91 70112 35411</a></div>
+      </div>
+    </div>
+
+    <div class="ci">
+      <div class="ci-icon">🕐</div>
+      <div>
+        <div class="ci-label">Response time</div>
+        <div class="ci-val">Within 24 hours</div>
+      </div>
+    </div>
+
+    <div class="ci">
+      <div class="ci-icon">🌐</div>
+      <div>
+        <div class="ci-label">Service area</div>
+        <div class="ci-val">All of India</div>
+      </div>
+    </div>
+
+    <div style="margin-top:24px;padding-top:24px;border-top:1px solid var(--border)">
+      <div class="ci-label" style="margin-bottom:10px">Existing client?</div>
+      <a href="portal.html" style="display:inline-block;background:var(--green-light);color:var(--green);padding:10px 18px;border-radius:8px;font-size:13px;font-weight:500;text-decoration:none">Go to your dashboard →</a>
+    </div>
+  </div>
+
+  <!-- Contact form -->
+  <div class="card">
+    <h2>Send us a message</h2>
+    <form id="contactForm">
+      <input type="hidden" name="access_key" value="5313e6b1-8f61-4f01-975c-af4170707703">
+      <input type="hidden" name="subject" value="New enquiry from ColorcraftAI website">
+      <input type="hidden" name="from_name" value="ColorcraftAI Website">
+      <input type="checkbox" name="botcheck" style="display:none">
+
+      <div class="form-group">
+        <label>Your name *</label>
+        <input type="text" name="name" required placeholder="Dr. Sharma / Rajan Mehta">
+      </div>
+      <div class="form-group">
+        <label>Business name</label>
+        <input type="text" name="business" placeholder="Sharma Dental Clinic">
+      </div>
+      <div class="form-group">
+        <label>Email *</label>
+        <input type="email" name="email" required placeholder="you@yourbusiness.in">
+      </div>
+      <div class="form-group">
+        <label>Phone</label>
+        <input type="tel" name="phone" placeholder="+91 98110 00000">
+      </div>
+      <div class="form-group">
+        <label>What's this about?</label>
+        <select name="subject_type">
+          <option>I want to start the free trial</option>
+          <option>I have a question about the service</option>
+          <option>I'm an existing client needing support</option>
+          <option>Partnership or business enquiry</option>
+          <option>Something else</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Message *</label>
+        <textarea name="message" required placeholder="Tell us about your business and what you need..."></textarea>
+      </div>
+      <button type="submit" class="btn-submit" id="submitBtn">Send message →</button>
+    </form>
+    <div class="success-box" id="successBox">
+      <h3>✓ Message sent!</h3>
+      <p>We'll reply to your email within 24 hours.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="privacy.html">Privacy policy</a>
+    <a href="terms.html">Terms of service</a>
+    <a href="cancellation.html">Cancellation &amp; Refunds</a>
+    <a href="shipping.html">Delivery policy</a>
+    <a href="contact.html">Contact</a>
+    <a href="blog.html">Blog</a>
+  </div>
+  <div class="footer-copy">© 2025 ColorcraftAI · Made in India</div>
+</footer>
+
+<script>
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+  const data = Object.fromEntries(new FormData(this));
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    const result = await res.json();
+    if (result.success) {
+      document.getElementById('contactForm').style.display = 'none';
+      document.getElementById('successBox').style.display = 'block';
+    } else {
+      btn.disabled = false; btn.textContent = 'Send message →';
+      alert('Something went wrong. Please email us at info@colorcraftai.in');
+    }
+  } catch(err) {
+    btn.disabled = false; btn.textContent = 'Send message →';
+    alert('Something went wrong. Please email us at info@colorcraftai.in');
+  }
+});
+</script>
+</body>
+</html>

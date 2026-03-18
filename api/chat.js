@@ -3,9 +3,7 @@ import { supabase } from '../lib/supabase.js';
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
-// ── CACHE LOOKUP ─────────────────────────────────────────────────────────────
-// Search for a cached answer using full-text search.
-// Returns the best matching cached answer if similarity is high enough.
+// ── CACHE LOOKUP ──────────────────────────────────────────────────────────────
 async function findCachedAnswer(question, mode) {
   try {
     const { data } = await supabase
@@ -17,7 +15,6 @@ async function findCachedAnswer(question, mode) {
       .limit(1);
 
     if (data?.[0]) {
-      // Increment usage count (non-blocking)
       supabase.from('qa_cache').update({ usage_count: data[0].usage_count + 1 }).eq('id', data[0].id).then(() => {});
       return data[0].answer;
     }
@@ -28,7 +25,6 @@ async function findCachedAnswer(question, mode) {
 // ── SAVE TO CACHE ─────────────────────────────────────────────────────────────
 async function saveToCache(question, answer, mode) {
   try {
-    // Only cache short factual questions (not long conversations)
     if (question.length > 200) return;
     await supabase.from('qa_cache').insert({
       mode,
@@ -39,16 +35,14 @@ async function saveToCache(question, answer, mode) {
   } catch(e) { /* silently fail */ }
 }
 
-// ── LOAD TOP CACHED Q&As AS EXAMPLES ─────────────────────────────────────────
-// Inject the top 5 most-asked Q&As into the system prompt so Claude learns
-// what works best for your specific audience over time.
+// ── LOAD TOP EXAMPLES FOR SELF-IMPROVEMENT ────────────────────────────────────
 async function loadTopExamples(mode) {
   try {
     const { data } = await supabase
       .from('qa_cache')
       .select('question, answer')
       .eq('mode', mode)
-      .gte('helpful_up', 1)           // only answers users found helpful
+      .gte('helpful_up', 1)
       .order('helpful_up', { ascending: false })
       .limit(5);
 
@@ -71,8 +65,7 @@ export default async function handler(req, res) {
 
     const lastUserMessage = messages[messages.length - 1]?.content || '';
 
-    // ── STEP 1: Check cache first (free) ───────────────────────────────────
-    // Only check cache for single-turn visitor questions (not ongoing conversations)
+    // ── STEP 1: Check cache first (free) ──────────────────────────────────────
     if (mode === 'visitor' && messages.length === 1 && lastUserMessage.length < 200) {
       const cached = await findCachedAnswer(lastUserMessage, mode);
       if (cached) {
@@ -80,7 +73,7 @@ export default async function handler(req, res) {
       }
     }
 
-    // ── STEP 2: Load client context if portal ──────────────────────────────
+    // ── STEP 2: Load client context ───────────────────────────────────────────
     let clientContext = '';
     if (clientSlug) {
       const { data: client } = await supabase
@@ -101,10 +94,10 @@ CLIENT CONTEXT:
       }
     }
 
-    // ── STEP 3: Load top examples for self-improvement ─────────────────────
+    // ── STEP 3: Load top examples for self-improvement ────────────────────────
     const examples = await loadTopExamples(mode);
 
-    // ── STEP 4: Build system prompt ────────────────────────────────────────
+    // ── STEP 4: Build system prompt ───────────────────────────────────────────
     const basePrompts = {
       visitor: `You are ColorcraftAI's assistant on our website. Help visitors understand what we do and answer their questions. ColorcraftAI manages Google reviews for Indian businesses — we monitor reviews, respond with AI, and improve Google ratings. We are a Google-only service. Do NOT mention Zomato, Practo, JustDial or any other platform. Be warm, concise, and persuasive. Keep replies under 3 sentences unless more detail is needed.`,
 
@@ -115,22 +108,22 @@ CLIENT CONTEXT:
 
     const systemPrompt = (basePrompts[mode] || basePrompts.visitor) + examples;
 
-    // ── STEP 5: Call Claude ────────────────────────────────────────────────
+    // ── STEP 5: Call Claude (Haiku = 5x cheaper) ─────────────────────────────
     const response = await anthropic.messages.create({
-      model: 'claude-haiku-4-5-20251001', // Haiku = 5x cheaper than Sonnet
-      max_tokens: 300,                     // Short answers = lower cost
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 300,
       system: systemPrompt,
       messages: messages.map(m => ({ role: m.role, content: m.content }))
     });
 
     const reply = response.content[0].text.trim();
 
-    // ── STEP 6: Save new Q&A to cache (non-blocking) ──────────────────────
+    // ── STEP 6: Save to cache (non-blocking) ──────────────────────────────────
     if (messages.length === 1 && lastUserMessage.length < 200) {
       saveToCache(lastUserMessage, reply, mode);
     }
 
-    // ── STEP 7: Save to chat history ──────────────────────────────────────
+    // ── STEP 7: Save to chat history ──────────────────────────────────────────
     if (sessionId) {
       supabase.from('chat_messages').insert([
         { session_id: sessionId, role: 'user', content: lastUserMessage },

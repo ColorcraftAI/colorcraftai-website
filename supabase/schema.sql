@@ -154,3 +154,21 @@ CREATE POLICY "service_all_platforms"        ON client_platforms FOR ALL USING (
 CREATE POLICY "service_all_reviews"          ON reviews          FOR ALL USING (true);
 CREATE POLICY "service_all_chat_messages"    ON chat_messages    FOR ALL USING (true);
 CREATE POLICY "service_all_alerts"           ON alerts           FOR ALL USING (true);
+
+-- ── QA CACHE (self-improving chatbot) ────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS qa_cache (
+  id           UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  mode         TEXT NOT NULL DEFAULT 'visitor',
+  question     TEXT NOT NULL,
+  answer       TEXT NOT NULL,
+  keywords     TEXT,
+  usage_count  INTEGER DEFAULT 1,
+  helpful_up   INTEGER DEFAULT 0,
+  helpful_down INTEGER DEFAULT 0,
+  created_at   TIMESTAMPTZ DEFAULT NOW(),
+  updated_at   TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS qa_cache_question_idx ON qa_cache USING gin(to_tsvector('english', question));
+CREATE INDEX IF NOT EXISTS qa_cache_mode_idx ON qa_cache (mode);
+GRANT ALL ON qa_cache TO anon, authenticated, service_role;
