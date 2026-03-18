@@ -1,0 +1,14 @@
+{
+  "name": "colorcraftai",
+  "version": "1.0.0",
+  "description": "ColorcraftAI — Online Reputation Management for Indian Businesses",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.40.0",
+    "@supabase/supabase-js": "^2.39.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
