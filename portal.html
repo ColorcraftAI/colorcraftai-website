@@ -312,22 +312,17 @@ body{display:flex}
     <div class="nav-sec">Reviews</div>
     <div class="ni" onclick="go('reviews',this,'All Reviews')"><div class="ni-ic">☆</div>All reviews</div>
     <div class="ni" onclick="go('campaigns',this,'Review Campaigns')"><div class="ni-ic">◉</div>Review campaigns<span class="ni-badge nb-g">Active</span></div>
-    <div class="ni" onclick="go('campaigns',this,'Campaigns')"><div class="ni-ic">◷</div>Campaigns</div>
     <div class="ni" onclick="go('library',this,'Response Library')"><div class="ni-ic">▤</div>Response library</div>
-    <div class="ni" onclick="go('training',this,'AI Training')"><div class="ni-ic">⬡</div>AI training</div>
 
     <div class="nav-sec">Presence</div>
     <div class="ni" onclick="go('photos',this,'Photo Manager')"><div class="ni-ic">▨</div>Photo manager<span class="ni-badge nb-a">4 tips</span></div>
     <div class="ni" onclick="go('qa',this,'Q&A Monitor')"><div class="ni-ic">?</div>Q&A monitor<span class="ni-badge nb-r">2</span></div>
-    <div class="ni" onclick="go('widget',this,'Rating Widget')"><div class="ni-ic">◈</div>Rating widget</div>
-    <div class="ni" onclick="go('ranking',this,'Ranking Tracker')"><div class="ni-ic">↑</div>Ranking tracker</div>
-    <div class="ni" onclick="go('social',this,'Social Proof')"><div class="ni-ic">◫</div>Social proof feed</div>
 
     <div class="nav-sec">Intelligence</div>
     <div class="ni" onclick="go('competitors',this,'Competitor Alerts')"><div class="ni-ic">⚡</div>Competitor alerts<span class="ni-badge nb-r">2</span></div>
     <div class="ni" onclick="go('journey',this,'Patient Journey')"><div class="ni-ic">→</div>Patient journey</div>
     <div class="ni" onclick="go('whatsapp',this,'WhatsApp Inbox')"><div class="ni-ic">◌</div>WhatsApp inbox<span class="ni-badge nb-g">5</span></div>
-    <div class="ni" onclick="go('locations',this,'Locations')"><div class="ni-ic">◯</div>Locations<span class="ni-badge nb-k" style="background:#f3f3f3;color:#444">1</span></div>
+    <!-- Locations hidden until client has multiple locations -->
 
     <div class="nav-sec">Reports</div>
     <div class="ni" onclick="go('reports',this,'Reports')"><div class="ni-ic">↓</div>Reports</div>
@@ -362,12 +357,156 @@ body{display:flex}
 
     <!-- ── OVERVIEW ── -->
     <div id="sc-overview" class="sc act">
-      <div class="g5">
-        <div class="kpi"><div class="kpi-l">Score</div><div class="kpi-v" style="color:var(--g)">84</div><div class="kpi-c" style="color:var(--g)">▲ +11 pts</div></div>
-        <div class="kpi"><div class="kpi-l">Google rating</div><div class="kpi-v">4.4★</div><div class="kpi-c" style="color:var(--g)">▲ +0.8</div></div>
+
+      <!-- ══ REPUTATION SCORE HERO ══ -->
+      <div style="background:linear-gradient(135deg,#0d1f13 0%,#0f2a1a 50%,#112e1c 100%);border-radius:14px;padding:24px 28px;margin-bottom:16px;position:relative;overflow:hidden">
+        <!-- background decoration -->
+        <div style="position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:rgba(34,196,122,.06);pointer-events:none"></div>
+        <div style="position:absolute;bottom:-30px;left:60px;width:120px;height:120px;border-radius:50%;background:rgba(34,196,122,.04);pointer-events:none"></div>
+
+        <div style="display:flex;align-items:center;gap:28px;flex-wrap:wrap">
+
+          <!-- Big score dial -->
+          <div style="position:relative;flex-shrink:0">
+            <svg width="110" height="110" viewBox="0 0 110 110">
+              <!-- track -->
+              <circle cx="55" cy="55" r="46" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="8"/>
+              <!-- score arc (84% of 251.2 = 211) -->
+              <circle cx="55" cy="55" r="46" fill="none" stroke="#22c47a" stroke-width="8"
+                stroke-dasharray="211 40.2" stroke-dashoffset="62.8" stroke-linecap="round"
+                style="transition:stroke-dasharray .8s ease"/>
+              <!-- glow -->
+              <circle cx="55" cy="55" r="46" fill="none" stroke="#22c47a" stroke-width="2" opacity=".3"
+                stroke-dasharray="211 40.2" stroke-dashoffset="62.8" stroke-linecap="round"/>
+            </svg>
+            <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center">
+              <div style="font-family:'Fraunces',serif;font-size:30px;font-weight:600;color:#fff;line-height:1">84</div>
+              <div style="font-size:9px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.08em">/100</div>
+            </div>
+          </div>
+
+          <!-- Score label + trend -->
+          <div style="flex:1;min-width:160px">
+            <div style="font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.45);margin-bottom:4px">ColorcraftAI Score</div>
+            <div style="font-family:'Fraunces',serif;font-size:22px;color:#fff;font-weight:500;margin-bottom:2px">Excellent</div>
+            <div style="font-size:12px;color:#22c47a;display:flex;align-items:center;gap:4px;margin-bottom:12px">
+              <span>▲ +11 pts this month</span>
+              <span style="color:rgba(255,255,255,.3)">·</span>
+              <span style="color:rgba(255,255,255,.4)">Was 73 in Oct</span>
+            </div>
+            <div style="font-size:11px;color:rgba(255,255,255,.5);line-height:1.6;max-width:280px">Your reputation is in the top <strong style="color:#22c47a">8%</strong> of dental clinics in South Delhi.</div>
+          </div>
+
+          <!-- Sub-score bars -->
+          <div style="flex:1;min-width:220px;display:flex;flex-direction:column;gap:10px">
+
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+                <span style="font-size:11px;color:rgba(255,255,255,.6)">⭐ Google Rating</span>
+                <span style="font-size:11px;font-weight:600;color:#fff">4.4 / 5.0 <span style="color:#22c47a;font-size:10px">▲+0.8</span></span>
+              </div>
+              <div style="background:rgba(255,255,255,.08);border-radius:4px;height:5px">
+                <div style="width:88%;height:100%;background:#22c47a;border-radius:4px"></div>
+              </div>
+            </div>
+
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+                <span style="font-size:11px;color:rgba(255,255,255,.6)">💬 Review Volume</span>
+                <span style="font-size:11px;font-weight:600;color:#fff">31 reviews <span style="color:#22c47a;font-size:10px">▲+8</span></span>
+              </div>
+              <div style="background:rgba(255,255,255,.08);border-radius:4px;height:5px">
+                <div style="width:72%;height:100%;background:#22c47a;border-radius:4px"></div>
+              </div>
+            </div>
+
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+                <span style="font-size:11px;color:rgba(255,255,255,.6)">⚡ Response Rate</span>
+                <span style="font-size:11px;font-weight:600;color:#fff">94% <span style="color:#22c47a;font-size:10px">▲+14%</span></span>
+              </div>
+              <div style="background:rgba(255,255,255,.08);border-radius:4px;height:5px">
+                <div style="width:94%;height:100%;background:#22c47a;border-radius:4px"></div>
+              </div>
+            </div>
+
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+                <span style="font-size:11px;color:rgba(255,255,255,.6)">😊 Sentiment</span>
+                <span style="font-size:11px;font-weight:600;color:#fff">87% positive <span style="color:#22c47a;font-size:10px">▲+9%</span></span>
+              </div>
+              <div style="background:rgba(255,255,255,.08);border-radius:4px;height:5px">
+                <div style="width:87%;height:100%;background:#22c47a;border-radius:4px"></div>
+              </div>
+            </div>
+
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+                <span style="font-size:11px;color:rgba(255,255,255,.6)">🗓️ Recency</span>
+                <span style="font-size:11px;font-weight:600;color:#fff">Last review: Today</span>
+              </div>
+              <div style="background:rgba(255,255,255,.08);border-radius:4px;height:5px">
+                <div style="width:96%;height:100%;background:#22c47a;border-radius:4px"></div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right: competitor benchmark -->
+          <div style="flex-shrink:0;min-width:150px;border-left:1px solid rgba(255,255,255,.07);padding-left:24px">
+            <div style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.4);margin-bottom:12px">vs Competitors</div>
+
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;align-items:center;gap:8px">
+                <div style="width:6px;height:6px;border-radius:50%;background:#22c47a;flex-shrink:0"></div>
+                <div style="flex:1">
+                  <div style="font-size:10px;color:rgba(255,255,255,.7);font-weight:600">Sharma Dental</div>
+                  <div style="font-size:9px;color:rgba(255,255,255,.35)">You · #1</div>
+                </div>
+                <div style="font-size:12px;font-weight:700;color:#22c47a">84</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;opacity:.7">
+                <div style="width:6px;height:6px;border-radius:50%;background:#868e96;flex-shrink:0"></div>
+                <div style="flex:1">
+                  <div style="font-size:10px;color:rgba(255,255,255,.5)">Smile Dental</div>
+                  <div style="font-size:9px;color:rgba(255,255,255,.25)">#2</div>
+                </div>
+                <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.5)">71</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;opacity:.6">
+                <div style="width:6px;height:6px;border-radius:50%;background:#868e96;flex-shrink:0"></div>
+                <div style="flex:1">
+                  <div style="font-size:10px;color:rgba(255,255,255,.4)">City Dental</div>
+                  <div style="font-size:9px;color:rgba(255,255,255,.2)">#3</div>
+                </div>
+                <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.4)">64</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;opacity:.5">
+                <div style="width:6px;height:6px;border-radius:50%;background:#868e96;flex-shrink:0"></div>
+                <div style="flex:1">
+                  <div style="font-size:10px;color:rgba(255,255,255,.3)">Area avg</div>
+                </div>
+                <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.3)">58</div>
+              </div>
+            </div>
+
+            <div style="margin-top:14px;padding:8px 10px;background:rgba(34,196,122,.1);border:1px solid rgba(34,196,122,.2);border-radius:8px">
+              <div style="font-size:9px;color:#22c47a;font-weight:600;text-transform:uppercase;letter-spacing:.08em">Area Rank</div>
+              <div style="font-family:'Fraunces',serif;font-size:20px;color:#fff;font-weight:500">#1</div>
+              <div style="font-size:9px;color:rgba(255,255,255,.4)">Up from #6 in Oct</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ══ QUICK STATS ROW ══ -->
+      <div class="g5" style="margin-bottom:16px">
+        <div class="kpi"><div class="kpi-l">Reviews this month</div><div class="kpi-v" style="color:var(--g)">8</div><div class="kpi-c" style="color:var(--g)">▲ +3 vs last month</div></div>
+        <div class="kpi"><div class="kpi-l">Avg response time</div><div class="kpi-v">47m</div><div class="kpi-c" style="color:var(--g)">▲ 2x faster</div></div>
         <div class="kpi"><div class="kpi-l">NPS</div><div class="kpi-v" style="color:var(--b)">75</div><div class="kpi-c" style="color:var(--b)">▲ +12</div></div>
-        <div class="kpi"><div class="kpi-l">Area rank</div><div class="kpi-v">#1</div><div class="kpi-c" style="color:var(--g)">Up from #6</div></div>
-        <div class="kpi"><div class="kpi-l">Blocked</div><div class="kpi-v" style="color:var(--a)">3</div><div class="kpi-c" style="color:var(--mu)">bad reviews</div></div>
+        <div class="kpi"><div class="kpi-l">Avg response time</div><div class="kpi-v">47m</div><div class="kpi-c" style="color:var(--g)">▲ 2x faster than before</div></div>
+        <div class="kpi"><div class="kpi-l">Listing views/mo</div><div class="kpi-v">4,820</div><div class="kpi-c" style="color:var(--g)">▲ +22%</div></div>
       </div>
       <div class="g21">
         <div class="col">
@@ -480,7 +619,7 @@ body{display:flex}
           <div class="row-body">
             <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px"><div class="row-title">You own "painless" — use it more aggressively</div><span class="tag tag-g">Growth</span></div>
             <div class="row-text">81% of your 5-star reviews mention "painless" or "no pain" compared to 12% for competitors. This is your #1 differentiator. Claude recommends adding "pain-free dentistry" to your Google Business Profile and posting 2 social proof cards this month.</div>
-            <div style="display:flex;gap:6px;margin-top:8px"><button class="btn-green btn" style="font-size:10px" onclick="go('social',ni('social'),'Social Proof')">Create social post →</button></div>
+            
           </div>
           <div class="row-meta">1d</div>
         </div>
@@ -545,7 +684,7 @@ body{display:flex}
             <div style="padding:12px 14px;display:flex;flex-direction:column;gap:10px">
               <div><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px"><span>Positive (4–5★)</span><span style="font-weight:500;color:var(--g)">81%</span></div><div class="bar-bg"><div class="bar-fill" style="width:81%;background:var(--g)"></div></div></div>
               <div><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px"><span>Neutral (3★)</span><span style="font-weight:500;color:var(--a)">13%</span></div><div class="bar-bg"><div class="bar-fill" style="width:13%;background:var(--a)"></div></div></div>
-              <div><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px"><span>Negative (1–2★)</span><span style="font-weight:500;color:var(--r)">6%</span></div><div class="bar-bg"><div class="bar-fill" style="width:6%;background:var(--r)"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px"><span>Low ratings (1–2★)</span><span style="font-weight:500;color:var(--r)">6%</span></div><div class="bar-bg"><div class="bar-fill" style="width:6%;background:var(--r)"></div></div></div>
               <div style="border-top:1px solid var(--bd);padding-top:10px;margin-top:2px">
                 <div style="font-size:10px;color:var(--fa);margin-bottom:7px;text-transform:uppercase;letter-spacing:.07em">Top keywords in your reviews</div>
                 <div style="display:flex;flex-wrap:wrap;gap:5px">
@@ -573,7 +712,7 @@ body{display:flex}
         <span class="tag tag-b" style="padding:5px 13px;cursor:pointer;border-radius:99px">Google (22)</span>
         <span class="tag tag-g" style="padding:5px 13px;cursor:pointer;border-radius:99px">Justdial (9)</span>
         <span class="tag tag-g" style="padding:5px 13px;cursor:pointer;border-radius:99px">5★</span>
-        <span class="tag tag-r" style="padding:5px 13px;cursor:pointer;border-radius:99px">Negative (2)</span>
+        <span class="tag tag-r" style="padding:5px 13px;cursor:pointer;border-radius:99px">Low ratings (2)</span>
       </div>
       <div class="card" id="all-reviews-list"></div>
     </div>
@@ -615,18 +754,7 @@ body{display:flex}
       </div>
     </div>
 
-    <!-- ── AI TRAINING ── -->
-    <div id="sc-training" class="sc">
-      <div class="g3">
-        <div class="kpi"><div class="kpi-l">Responses rated</div><div class="kpi-v">23</div><div class="kpi-c" style="color:var(--mu)">This month</div></div>
-        <div class="kpi"><div class="kpi-l">AI accuracy</div><div class="kpi-v" style="color:var(--g)">89%</div><div class="kpi-c" style="color:var(--g)">▲ Up from 71%</div></div>
-        <div class="kpi"><div class="kpi-l">Current tone</div><div class="kpi-v" style="font-size:15px">Warm</div><div class="kpi-c" style="color:var(--mu)">Professional + friendly</div></div>
-      </div>
-      <div class="card">
-        <div class="ch"><div class="ct">Rate AI responses</div><span style="font-size:11px;color:var(--fa)">Your ratings teach Claude your style</span></div>
-        <div id="training-rows"></div>
-      </div>
-    </div>
+    
 
     <!-- ── PHOTO MANAGER ── -->
     <div id="sc-photos" class="sc">
@@ -692,65 +820,11 @@ body{display:flex}
       </div>
     </div>
 
-    <!-- ── WIDGET ── -->
-    <div id="sc-widget" class="sc">
-      <div class="g2">
-        <div class="col">
-          <div class="card">
-            <div class="ch"><div class="ct">Live preview</div></div>
-            <div style="padding:12px">
-              <div class="browser-chrome"><div class="chrome-dot" style="background:#ff5f57"></div><div class="chrome-dot" style="background:#ffbd2e"></div><div class="chrome-dot" style="background:#28c840"></div><div class="chrome-bar">sharma-dental.com/contact</div></div>
-              <div class="browser-body">
-                <div style="font-family:var(--serif);font-size:16px;margin-bottom:4px">Book Your Appointment</div>
-                <div style="font-size:11px;color:#666;margin-bottom:10px">We welcome new patients. Call us or book online today.</div>
-                <div style="display:inline-flex;align-items:center;gap:9px;background:#f0faf5;border:1px solid #c3e6d5;border-radius:8px;padding:8px 12px">
-                  <span style="color:var(--a);font-size:15px">★★★★★</span>
-                  <div><div style="font-size:12px;font-weight:500;color:var(--gd)">4.4 on Google</div><div style="font-size:10px;color:#666">31 verified reviews</div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="ch"><div class="ct">Widget stats</div></div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bd)">
-              <div style="padding:12px 14px;background:var(--wh)"><div style="font-size:10px;color:var(--fa);margin-bottom:3px">Impressions</div><div style="font-family:var(--serif);font-size:22px">1,240</div></div>
-              <div style="padding:12px 14px;background:var(--wh)"><div style="font-size:10px;color:var(--fa);margin-bottom:3px">Clicks to Google</div><div style="font-family:var(--serif);font-size:22px;color:var(--b)">87</div></div>
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="ch"><div class="ct">Embed code</div><button class="btn" style="font-size:10px" onclick="alert('Copied!')">Copy</button></div>
-          <div style="padding:12px 14px">
-            <div style="background:#111;border-radius:8px;padding:14px;font-family:monospace;font-size:11px;color:#9FE1CB;line-height:1.9">&lt;script src="https://widget<br>&nbsp;.colorcraftai.in/v1/sd-001<br>&nbsp;.js"&gt;&lt;/script&gt;<br>&lt;div id="colorcraftai-widget"<br>&nbsp;data-client="sd-001"<br>&nbsp;data-style="green"&gt;<br>&lt;/div&gt;</div>
-            <div style="font-size:11px;color:var(--fa);margin-top:10px;line-height:1.6">Paste anywhere on your website. Updates live when new reviews arrive. No maintenance needed.</div>
-          </div>
-          <div style="border-top:1px solid var(--bd);padding:12px 14px">
-            <div style="font-size:11px;font-weight:500;margin-bottom:8px">Widget style</div>
-            <div style="display:flex;flex-direction:column;gap:6px">
-              <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:12px"><input type="radio" name="ws" checked> Green badge (selected)</label>
-              <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:12px;color:var(--mu)"><input type="radio" name="ws"> Dark badge</label>
-              <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:12px;color:var(--mu)"><input type="radio" name="ws"> Stars only</label>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    
 
-    <!-- ── RANKING ── -->
-    <div id="sc-ranking" class="sc">
-      <div class="g3">
-        <div class="kpi"><div class="kpi-l">Keywords tracked</div><div class="kpi-v">8</div></div>
-        <div class="kpi"><div class="kpi-l">Top 3 positions</div><div class="kpi-v" style="color:var(--g)">5</div><div class="kpi-c" style="color:var(--g)">▲ Up from 2</div></div>
-        <div class="kpi"><div class="kpi-l">Avg position</div><div class="kpi-v" style="color:var(--g)">2.1</div><div class="kpi-c" style="color:var(--g)">▲ Was 5.4</div></div>
-      </div>
-      <div class="card" id="rank-rows-container"></div>
-    </div>
+    
 
-    <!-- ── SOCIAL PROOF ── -->
-    <div id="sc-social" class="sc">
-      <div style="font-size:12px;color:var(--mu);margin-bottom:4px">Auto-generated social cards from your 5-star reviews. Download and share on Instagram, WhatsApp status, or your website.</div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px" id="social-grid"></div>
-    </div>
+    
 
     <!-- ── COMPETITORS ── -->
     <div id="sc-competitors" class="sc">
@@ -799,8 +873,8 @@ body{display:flex}
           <div style="padding:12px">
             <div class="wa-thread">
               <div class="wa-day">Mon Mar 10</div>
-              <div class="wa-msg wa-in"><strong>Weekly update ·</strong> Good morning Dr Sharma! Here's your week:<br>• 7 new reviews (6 ★★★★★, 1 ★★)<br>• Rating: 4.3 → 4.4 ★<br>• 1 negative review responded to in 30 mins<br>• Area rank: still #1<br><div class="wa-time">9:00am ✓✓</div></div>
-              <div class="wa-msg wa-out">Great! What about that negative one?<div class="wa-time">9:14am ✓✓</div></div>
+              <div class="wa-msg wa-in"><strong>Weekly update ·</strong> Good morning Dr Sharma! Here's your week:<br>• 7 new reviews (6 ★★★★★, 1 ★★)<br>• Rating: 4.3 → 4.4 ★<br>• 1 low-rated review responded to in 30 mins<br>• Area rank: still #1<br><div class="wa-time">9:00am ✓✓</div></div>
+              <div class="wa-msg wa-out">Great! What about the 2-star one?<div class="wa-time">9:14am ✓✓</div></div>
               <div class="wa-msg wa-in">The patient mentioned wait time. ColorcraftAI responded: "We sincerely apologise..." — they replied privately to say they'll give you another chance. No public damage.<div class="wa-time">9:15am ✓✓</div></div>
               <div class="wa-day">Today</div>
               <div class="wa-msg wa-in"><strong>🚨 Crisis alert</strong> — 1★ review just posted on Google: "Waited 45 mins, no apology from staff." ColorcraftAI is drafting a response now. You'll be notified when published.<div class="wa-time">2:34pm ✓✓</div></div>
