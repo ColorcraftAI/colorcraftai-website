@@ -238,36 +238,6 @@ body{display:flex}
 .ob-step{font-size:11px;font-weight:600;color:var(--g);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
 .ob-title{font-family:'Fraunces',serif;font-size:24px;font-weight:500;color:var(--tx);margin-bottom:6px}
 .ob-sub{font-size:14px;color:var(--fa);margin-bottom:24px;line-height:1.6}
-.ob-inp{width:100%;padding:12px 14px;border-radius:10px;border:1.5px solid var(--bd);font-size:14px;font-family:'DM Sans',sans-serif;color:var(--tx);outline:none;transition:border .2s;margin-bottom:10px}
-.ob-inp:focus{border-color:var(--g)}
-.ob-inp:disabled{background:#f5f5f3;color:var(--fa);cursor:not-allowed;}
-.ob-results{border:1.5px solid var(--bd);border-radius:10px;max-height:220px;overflow-y:auto;margin-bottom:14px;display:none}
-.ob-result{padding:12px 14px;cursor:pointer;border-bottom:1px solid var(--bd);transition:background .15s}
-.ob-result:last-child{border-bottom:none}
-.ob-result:hover{background:var(--gl)}
-.ob-result-name{font-size:13px;font-weight:600;color:var(--tx)}
-.ob-result-addr{font-size:11px;color:var(--fa);margin-top:2px}
-.ob-result-rating{font-size:11px;color:var(--a);margin-top:2px}
-.ob-selected{background:var(--gl);border:1.5px solid var(--g);border-radius:10px;padding:12px 14px;margin-bottom:14px;display:none}
-.ob-selected-name{font-size:13px;font-weight:600;color:var(--g)}
-.ob-selected-addr{font-size:11px;color:var(--fa);margin-top:2px}
-.ob-btn{width:100%;padding:12px;border-radius:10px;background:var(--g);color:#fff;border:none;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s}
-.ob-btn:hover{background:#155f44}
-.ob-btn:disabled{background:var(--bd);cursor:not-allowed}
-.ob-spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;margin-right:6px;vertical-align:middle}
-@keyframes spin{to{transform:rotate(360deg)}}
-.ob-skip{font-size:12px;color:var(--fa);cursor:pointer;margin-top:12px;display:block;text-align:center}
-.ob-skip:hover{color:var(--tx)}
-
-/* ── Google Places Autocomplete dropdown fix ── */
-.pac-container{z-index:99999!important;border-radius:10px!important;border:1.5px solid var(--bd)!important;box-shadow:0 8px 32px rgba(0,0,0,.15)!important;font-family:'DM Sans',sans-serif!important;margin-top:4px!important}
-.pac-item{padding:10px 14px!important;font-size:13px!important;cursor:pointer!important;border-top:1px solid var(--bd)!important}
-.pac-item:first-child{border-top:none!important}
-.pac-item:hover{background:var(--gl)!important}
-.pac-item-query{font-weight:600!important;color:var(--tx)!important}
-.pac-matched{font-weight:700!important;color:var(--g)!important}
-</style>
-<script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
 
@@ -285,20 +255,25 @@ body{display:flex}
   </div>
 </div>
 
-<!-- ── ONBOARDING (shown for new clients) ── -->
+<!-- ── ONBOARDING (shown for new clients not yet in system) ── -->
 <div id="onboarding">
-  <div class="ob-card">
-    <div class="ob-step">Step 1 of 1 — Setup</div>
-    <h2 class="ob-title">Find your business on Google</h2>
-    <p class="ob-sub">Search for your business name so we can start monitoring your reviews automatically.</p>
-    <input class="ob-inp" id="ob-search" type="text" placeholder="Loading Google Maps…" autocomplete="off" disabled>
-    <div class="ob-results" id="ob-results"></div>
-    <div class="ob-selected" id="ob-selected">
-      <div class="ob-selected-name" id="ob-sel-name"></div>
-      <div class="ob-selected-addr" id="ob-sel-addr"></div>
+  <div class="ob-card" style="text-align:center;padding:52px 40px;">
+    <div style="width:56px;height:56px;background:#e8f5ef;border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z" fill="#1a7f5a"/></svg>
     </div>
-    <button class="ob-btn" id="ob-btn" onclick="completeOnboarding()" disabled>Connect my business →</button>
-    <span class="ob-skip" onclick="skipOnboarding()">Skip for now — I'll do this later</span>
+    <div style="font-size:11px;font-weight:600;color:var(--g);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">You're in!</div>
+    <h2 style="font-family:'Fraunces',serif;font-size:24px;font-weight:500;color:var(--tx);margin-bottom:10px">Account created</h2>
+    <p style="font-size:14px;color:var(--fa);line-height:1.7;max-width:320px;margin:0 auto 28px">Your ColorcraftAI account is ready. We're setting up your Google Business Profile connection — you'll get a WhatsApp message from us within 24 hours to complete setup.</p>
+    <div style="background:#e8f5ef;border-radius:12px;padding:16px 20px;margin-bottom:24px;text-align:left">
+      <div style="font-size:12px;font-weight:600;color:var(--g);margin-bottom:4px">📋 What happens next</div>
+      <div style="font-size:13px;color:var(--tx);line-height:1.8">
+        1. Our team connects your Google Business Profile<br>
+        2. We start monitoring your reviews (within 24h)<br>
+        3. You get your first WhatsApp report on Monday
+      </div>
+    </div>
+    <button class="ob-btn" onclick="skipOnboarding()" style="background:var(--g)">Go to my dashboard →</button>
+    <div style="font-size:12px;color:var(--fa);margin-top:14px">Questions? WhatsApp us at <strong>+91 98765 43210</strong></div>
   </div>
 </div>
 
@@ -995,115 +970,14 @@ function loadPortalForClient(slug, user) {
   loadClientData(slug);
 }
 
-// ── PLACES AUTOCOMPLETE ───────────────────────────────────────────────────────
-function initPlacesAutocomplete() {
-  // Always load Maps JS fresh — google.maps is different from google.accounts (GIS)
-  if (window.google && window.google.maps && window.google.maps.places) {
-    setupAutocomplete();
-    return;
-  }
-  // Fetch key from backend proxy then inject Maps JS
-  fetch('/api/maps-key')
-    .then(r => r.json())
-    .then(data => {
-      // Remove any existing Maps script to avoid duplicates
-      const existing = document.querySelector('script[src*="maps.googleapis.com/maps/api/js"]');
-      if (existing) existing.remove();
-      const s = document.createElement('script');
-      s.src = `https://maps.googleapis.com/maps/api/js?key=${data.key}&libraries=places&callback=onMapsLoaded`;
-      s.async = true;
-      document.head.appendChild(s);
-    })
-    .catch(() => {
-      const inp = document.getElementById('ob-search');
-      inp.disabled = false;
-      inp.placeholder = 'Search failed — please refresh and try again';
-    });
-}
-
-window.onMapsLoaded = function() { setupAutocomplete(); };
-
-function setupAutocomplete() {
-  const input = document.getElementById('ob-search');
-  if (!input || !window.google) return;
-
-  // Enable the input now that Maps is ready
-  input.disabled = false;
-  input.placeholder = 'e.g. Sharma Dental Clinic, New Delhi';
-  input.focus();
-
-  autocomplete = new google.maps.places.Autocomplete(input, {
-    types: ['establishment'],
-    componentRestrictions: { country: 'in' },
-    fields: ['place_id','name','formatted_address','rating','user_ratings_total','geometry']
-  });
-
-  autocomplete.addListener('place_changed', () => {
-    const place = autocomplete.getPlace();
-    if (!place.place_id) return;
-
-    selectedPlace = place;
-
-    // Show selected business card
-    document.getElementById('ob-sel-name').textContent = place.name;
-    document.getElementById('ob-sel-addr').textContent = place.formatted_address || '';
-    document.getElementById('ob-selected').style.display = 'block';
-    document.getElementById('ob-results').style.display  = 'none';
-
-    // Enable connect button
-    const btn = document.getElementById('ob-btn');
-    btn.disabled = false;
-    btn.textContent = `Connect "${place.name}" →`;
-  });
-}
-
-function completeOnboarding() {
-  if (!selectedPlace) return;
-  const btn = document.getElementById('ob-btn');
-  btn.innerHTML = '<span class="ob-spinner"></span>Setting up your portal…';
-  btn.disabled = true;
-
-  // Save to sessionStorage (in production → save to Supabase)
-  const clientData = {
-    email: currentUser?.email,
-    name: currentUser?.name,
-    businessName: selectedPlace.name,
-    placeId: selectedPlace.place_id,
-    address: selectedPlace.formatted_address,
-    rating: selectedPlace.rating,
-    totalReviews: selectedPlace.user_ratings_total,
-    setupAt: new Date().toISOString()
-  };
-  sessionStorage.setItem('ccai_client_data', JSON.stringify(clientData));
-
-  // Update portal UI with real business name
-  setTimeout(() => {
-    hideOnboarding();
-    updatePortalWithPlaceData(clientData);
-    loadClientData('new-client');
-  }, 1200);
-}
-
-function skipOnboarding() {
-  hideOnboarding();
-  loadClientData('sharma-dental'); // demo data as fallback
-}
-
-function updatePortalWithPlaceData(data) {
-  // Update all business name references in the portal
-  document.querySelectorAll('.tb-biz, .sidebar-biz-name').forEach(el => {
-    el.textContent = data.businessName;
-  });
-  document.title = `ColorcraftAI — ${data.businessName}`;
-
-  // Update rating if available
-  if (data.rating) {
-    const scVal = document.querySelector('.sc-val');
-    if (scVal) scVal.textContent = data.rating.toFixed(1);
-    const scBar = document.querySelector('.sc-bar');
-    if (scBar) scBar.style.width = `${(data.rating / 5 * 100).toFixed(0)}%`;
-  }
-}
+// ── PLACES AUTOCOMPLETE (disabled — GBP API pending approval) ────────────────
+// When Google approves GBP API, this will be replaced with:
+// google.accounts.oauth2 with scope 'business.manage'
+// and Place ID will come automatically from the GBP connection.
+function initPlacesAutocomplete() { /* noop — GBP flow coming */ }
+function setupAutocomplete() { /* noop */ }
+window.onMapsLoaded = function() { /* noop */ };
+function completeOnboarding() { skipOnboarding(); }
 
 // ── INIT ON PAGE LOAD ─────────────────────────────────────────────────────────
 (function init() {
