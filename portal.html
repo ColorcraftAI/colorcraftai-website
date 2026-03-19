@@ -329,11 +329,12 @@ body{display:flex}
 
     <div class="nav-sec">Reports</div>
     <div class="ni" onclick="go('reports',this,'Reports')"><div class="ni-ic">↓</div>Reports</div>
+    <div class="ni" onclick="go('billing',this,'Billing &amp; Subscription')"><div class="ni-ic">₹</div>Billing &amp; subscription</div>
   </div>
 
   <div class="sb-status">
     <div><span class="online-dot"></span>Live sync active</div>
-    <div style="color:var(--tx)">Sharma Dental · Growth</div>
+    <div style="color:var(--tx)">Sharma Dental · Review Management</div>
     <div>Next report Mon 9am</div>
   </div>
 </div>
@@ -838,7 +839,7 @@ body{display:flex}
         </div>
         <div style="padding:14px;background:var(--bg);border-top:1px solid var(--bd)">
           <div style="font-size:12px;font-weight:500;margin-bottom:6px">Ready to add a second location?</div>
-          <div style="font-size:11px;color:var(--mu);line-height:1.6;margin-bottom:10px">Clinic chains using ColorcraftAI's multi-location plan see unified reporting, cross-location competitor analysis, and single-dashboard management. Pricing from ₹8,999/month for 2 locations.</div>
+          <div style="font-size:11px;color:var(--mu);line-height:1.6;margin-bottom:10px">Clinic chains using ColorcraftAI's multi-location plan see unified reporting, cross-location competitor analysis, and single-dashboard management. Contact us to discuss multi-location pricing.</div>
           <button class="btn-green btn" onclick="alert('Upgrade to multi-location plan — our team will be in touch via WhatsApp')">Upgrade to multi-location</button>
         </div>
       </div>
@@ -847,6 +848,97 @@ body{display:flex}
     <!-- ── REPORTS ── -->
     <div id="sc-reports" class="sc">
       <div class="card" id="reports-rows"></div>
+    </div>
+
+    <!-- ── BILLING & SUBSCRIPTION ── -->
+    <div id="sc-billing" class="sc">
+
+      <!-- Current Plan Card -->
+      <div class="card" style="margin-bottom:12px">
+        <div class="ch">
+          <div class="ct">Current plan</div>
+          <span style="background:#e8f5ef;color:var(--g);font-size:10px;font-weight:600;padding:3px 10px;border-radius:99px;border:1px solid rgba(26,127,90,.15)">● Active</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px;flex-wrap:wrap;gap:12px">
+          <div>
+            <div style="font-family:var(--serif);font-size:24px;font-weight:500;color:var(--tx)">Review Management</div>
+            <div style="font-size:13px;color:var(--mu);margin-top:4px">Free for now · Beta period</div>
+            <div style="font-size:12px;color:var(--mu);margin-top:4px">Free until further notice · No credit card required</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-size:11px;color:var(--mu);margin-bottom:6px">Member since Jan 2026</div>
+            <button class="btn" style="font-size:11px;margin-right:6px" onclick="alert('To change your plan, WhatsApp us at +91 98765 43210')">Change plan</button>
+            <button class="btn" style="font-size:11px;color:var(--r);border-color:var(--r)" onclick="alert('To cancel, please WhatsApp us at +91 98765 43210')">Cancel</button>
+          </div>
+        </div>
+        <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--bd);display:grid;grid-template-columns:1fr 1fr;gap:6px">
+          <div style="font-size:12px;color:var(--mu)">✅ Google review monitoring 24/7</div>
+          <div style="font-size:12px;color:var(--mu)">✅ AI responses within 2 hours</div>
+          <div style="font-size:12px;color:var(--mu)">✅ Crisis alerts to your email instantly</div>
+          <div style="font-size:12px;color:var(--mu)">✅ Competitor tracking (3 rivals)</div>
+          <div style="font-size:12px;color:var(--mu)">✅ Weekly email update every Monday</div>
+          <div style="font-size:12px;color:var(--mu)">✅ Monthly PDF report on the 1st</div>
+          <div style="font-size:12px;color:var(--mu)">✅ NPS score &amp; sentiment analysis</div>
+          <div style="font-size:12px;color:var(--mu)">✅ Live client dashboard</div>
+        </div>
+      </div>
+
+      <!-- Usage This Month -->
+      <div class="card" style="margin-bottom:12px">
+        <div class="ch"><div class="ct">Usage this month</div><span class="ca">Mar 2026</span></div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px">
+          <div style="background:var(--bg);border-radius:10px;padding:14px;text-align:center">
+            <div style="font-family:var(--serif);font-size:22px;font-weight:500;color:var(--g)">31</div>
+            <div style="font-size:11px;color:var(--mu);margin-top:3px">Reviews monitored</div>
+          </div>
+          <div style="background:var(--bg);border-radius:10px;padding:14px;text-align:center">
+            <div style="font-family:var(--serif);font-size:22px;font-weight:500;color:var(--g)">28</div>
+            <div style="font-size:11px;color:var(--mu);margin-top:3px">AI responses sent</div>
+          </div>
+          <div style="background:var(--bg);border-radius:10px;padding:14px;text-align:center">
+            <div style="font-family:var(--serif);font-size:22px;font-weight:500;color:var(--g)">3</div>
+            <div style="font-size:11px;color:var(--mu);margin-top:3px">Campaigns run</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Invoice History -->
+      <div class="card" style="margin-bottom:12px">
+        <div class="ch"><div class="ct">Invoice history</div></div>
+        <div style="margin-top:10px" id="invoice-list">
+          <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--bd)">
+            <div style="width:36px;height:36px;background:var(--al);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px">🧾</div>
+            <div style="flex:1"><div style="font-size:13px;font-weight:500;color:var(--tx)">March 2026 — Review Management</div><div style="font-size:11px;color:var(--mu);margin-top:2px">1 Mar 2026</div></div>
+            <div style="text-align:right"><div style="font-size:13px;font-weight:600;color:var(--g)">Free</div><div style="font-size:11px;color:var(--a);margin-top:2px;font-weight:500">Beta period</div></div>
+            <button class="btn" style="font-size:10px;padding:4px 10px;flex-shrink:0" onclick="alert('Invoice not yet available')">PDF</button>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--bd)">
+            <div style="width:36px;height:36px;background:var(--gl);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px">🧾</div>
+            <div style="flex:1"><div style="font-size:13px;font-weight:500;color:var(--tx)">February 2026 — Review Management</div><div style="font-size:11px;color:var(--mu);margin-top:2px">1 Feb 2026</div></div>
+            <div style="text-align:right"><div style="font-size:13px;font-weight:600;color:var(--tx)">Free</div><div style="font-size:11px;color:var(--g);margin-top:2px;font-weight:500">Free — Beta period</div></div>
+            <button class="btn" style="font-size:10px;padding:4px 10px;flex-shrink:0" onclick="alert('Downloading February 2026 invoice…')">PDF</button>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:12px 0">
+            <div style="width:36px;height:36px;background:var(--gl);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px">🧾</div>
+            <div style="flex:1"><div style="font-size:13px;font-weight:500;color:var(--tx)">January 2026 — Review Management</div><div style="font-size:11px;color:var(--mu);margin-top:2px">1 Jan 2026</div></div>
+            <div style="text-align:right"><div style="font-size:13px;font-weight:600;color:var(--tx)">Free</div><div style="font-size:11px;color:var(--g);margin-top:2px;font-weight:500">Free — Beta period</div></div>
+            <button class="btn" style="font-size:10px;padding:4px 10px;flex-shrink:0" onclick="alert('Downloading January 2026 invoice…')">PDF</button>
+          </div>
+        </div>
+        <div style="font-size:12px;color:var(--mu);margin-top:12px;text-align:center">
+          Need a GST invoice? <a href="#" style="color:var(--g)" onclick="alert('WhatsApp us your GST number at +91 98765 43210');return false;">Request here →</a>
+        </div>
+      </div>
+
+      <!-- Upgrade CTA -->
+      <div style="background:linear-gradient(135deg,#1a7f5a,#2ea87a);border-radius:14px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+        <div>
+          <div style="font-family:var(--serif);font-size:17px;font-weight:500;color:#fff">Want to keep using ColorcraftAI after beta?</div>
+          <div style="font-size:13px;color:rgba(255,255,255,.75);margin-top:4px">Interested in additional features? Talk to us on WhatsApp</div>
+        </div>
+        <button style="background:#fff;color:var(--g);border:none;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif" onclick="alert('WhatsApp us at +91 98765 43210 to discuss your needs')">Talk to us →</button>
+      </div>
+
     </div>
 
   </div>
