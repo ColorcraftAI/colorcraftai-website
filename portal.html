@@ -903,7 +903,7 @@ rvs.forEach(rv=>{
 
 // ── CONFIG ──────────────────────────────────────────────────────────────────
 const GOOGLE_CLIENT_ID = '448046661768-e2d881kgil35c50rtuoh5njgu168m0ab.apps.googleusercontent.com';
-const PLACES_API_KEY   = 'AIzaSyChY8cyVdCRSFV6DSM3Zii5C3rXn_GCDpM';
+const PLACES_API_KEY   = ''; // Key removed - loaded via backend proxy
 const API = window.COLORCRAFTAI_API || '';
 
 // ── CLIENT EMAIL → SLUG MAPPING ─────────────────────────────────────────────
@@ -989,11 +989,19 @@ function loadPortalForClient(slug, user) {
 // ── PLACES AUTOCOMPLETE ───────────────────────────────────────────────────────
 function initPlacesAutocomplete() {
   if (!window.google || !google.maps || !google.maps.places) {
-    // Load Maps JS API dynamically
-    const s = document.createElement('script');
-    s.src = `https://maps.googleapis.com/maps/api/js?key=${PLACES_API_KEY}&libraries=places&callback=onMapsLoaded`;
-    s.async = true; s.defer = true;
-    document.head.appendChild(s);
+    // Fetch the Maps JS API key from our secure backend proxy
+    fetch('/api/maps-key')
+      .then(r => r.json())
+      .then(data => {
+        const s = document.createElement('script');
+        s.src = `https://maps.googleapis.com/maps/api/js?key=${data.key}&libraries=places&callback=onMapsLoaded`;
+        s.async = true; s.defer = true;
+        document.head.appendChild(s);
+      })
+      .catch(() => {
+        // Fallback: show manual input if API fails
+        document.getElementById('ob-search').placeholder = 'Enter your Google Place ID manually';
+      });
     return;
   }
   setupAutocomplete();
