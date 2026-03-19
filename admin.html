@@ -231,7 +231,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
       <div class="topbar-sub" id="topbar-sub">Friday, 13 March · Last sync 4 mins ago · 7 reviews need your attention</div>
     </div>
     <div class="topbar-actions">
-      <button class="btn" onclick="alert('Syncing all platforms...')">Sync now</button>
+      <button class="btn" id="sync-btn" onclick="syncNow(this)">Sync now</button>
       <button class="btn btn-primary" onclick="alert('Sending weekly WhatsApp reports to all 23 clients...')">Send weekly reports</button>
     </div>
   </div>
@@ -894,6 +894,20 @@ function renderBilling() {
       '<div><span style="padding:2px 8px;border-radius:99px;font-size:11px;background:#e8f5ef;color:#085041;font-weight:500">' + (c.status||'active') + '</span></div>' +
     '</div>';
   }).join('');
+}
+
+// ── SYNC ─────────────────────────────────────────────────────────────────────
+async function syncNow(btn) {
+  btn.textContent = 'Syncing…';
+  btn.disabled = true;
+  try {
+    await loadAllData();
+    btn.textContent = 'Synced ✓';
+    setTimeout(() => { btn.textContent = 'Sync now'; btn.disabled = false; }, 2000);
+  } catch(e) {
+    btn.textContent = 'Error — retry';
+    btn.disabled = false;
+  }
 }
 
 // ── SCREEN SWITCHER ───────────────────────────────────────────────────────────
