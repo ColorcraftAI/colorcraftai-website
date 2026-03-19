@@ -188,12 +188,12 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
     <div class="nav-item" onclick="switchScreen('queue', this)">
       <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.3"/><path d="M5 6h6M5 9h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
       Review queue
-      <span class="nav-badge badge-red">7</span>
+      <span class="nav-badge badge-red badge-queue">—</span>
     </div>
     <div class="nav-item" onclick="switchScreen('alerts', this)">
       <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><path d="M8 2v2M8 12v2M4 4l1.5 1.5M10.5 10.5 12 12M2 8h2M12 8h2M4 12l1.5-1.5M10.5 5.5 12 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><circle cx="8" cy="8" r="2.5" stroke="currentColor" stroke-width="1.3"/></svg>
       Crisis alerts
-      <span class="nav-badge badge-red">2</span>
+      <span class="nav-badge badge-red badge-crisis">—</span>
     </div>
     <div class="nav-section-label">Clients</div>
     <div class="nav-item" onclick="switchScreen('clients', this)">
@@ -241,17 +241,17 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
       <div class="kpi-grid">
         <div class="kpi">
           <div class="kpi-label">Active clients</div>
-          <div class="kpi-value" style="color:var(--text)">23</div>
+          <div class="kpi-value" id="kpi-clients" style="color:var(--text)">—</div>
           <div class="kpi-change" style="color:var(--green)">▲ +2 this month</div>
         </div>
         <div class="kpi">
           <div class="kpi-label">Reviews this week</div>
-          <div class="kpi-value" style="color:var(--text)">142</div>
+          <div class="kpi-value" id="kpi-reviews" style="color:var(--text)">—</div>
           <div class="kpi-change" style="color:var(--green)">▲ +18 vs last week</div>
         </div>
         <div class="kpi">
           <div class="kpi-label">Pending approval</div>
-          <div class="kpi-value" style="color:var(--red)">7</div>
+          <div class="kpi-value" id="kpi-pending" style="color:var(--red)">—</div>
           <div class="kpi-change" style="color:var(--red)">Needs action today</div>
         </div>
         <div class="kpi">
@@ -265,7 +265,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
         <div class="card">
           <div class="card-head">
             <div class="card-title">Review queue — pending approval</div>
-            <span class="card-link" onclick="switchScreen('queue', document.querySelector('[onclick*=queue]'))">View all 7 →</span>
+            <span class="card-link" id="queue-link" onclick="switchScreen('queue', document.querySelector('[onclick*=queue]'))">View all →</span>
           </div>
           <div class="review">
             <div class="review-meta">
@@ -350,7 +350,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
               <div class="card-title">Client ratings</div>
               <span class="card-link">Manage all →</span>
             </div>
-            <div class="client-row">
+            <div id="client-ratings"><div class="client-row">
               <div class="client-av" style="background:#e8f5ef;color:#085041">SD</div>
               <div class="client-info"><div class="name">Sharma Dental</div><div class="type">Clinic · Delhi</div></div>
               <div class="client-stat"><div class="client-rating" style="color:var(--green)">4.4 ★</div><div class="client-trend" style="color:var(--green)">+0.6 this month</div></div>
@@ -382,6 +382,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
             </div>
           </div>
 
+</div>
           <div class="card">
             <div class="card-head">
               <div class="card-title">Revenue — last 6 months</div>
@@ -407,7 +408,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
 
           <div class="card">
             <div class="card-head"><div class="card-title">Recent alerts</div><span class="card-link">View all →</span></div>
-            <div class="alert-row">
+            <div id="alerts-card"><div class="alert-row">
               <div class="alert-icon" style="background:#fee2e2">
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 3v4M7 9.5v.5" stroke="#dc2626" stroke-width="1.5" stroke-linecap="round"/><circle cx="7" cy="7" r="5.5" stroke="#dc2626" stroke-width="1"/></svg>
               </div>
@@ -451,7 +452,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
         </div>
         <button class="btn btn-primary" onclick="alert('Bulk approving all 7 reviews...')">Approve all 7</button>
       </div>
-      <div class="card">
+      <div class="card" id="queue-card">
         <div class="review">
           <div class="review-meta">
             <div class="biz-chip"><div class="biz-av" style="background:#e8f5ef;color:#085041">SD</div><div><div class="biz-name">Sharma Dental · Delhi</div></div></div>
@@ -659,6 +660,7 @@ function verifyAdminUser(token) {
     if (email === ADMIN_EMAIL) {
       // Authorised — show dashboard
       document.getElementById('auth-gate').classList.add('hidden');
+      loadAdminData(); // Load real data from Supabase
       sessionStorage.setItem('ccai_admin_user', JSON.stringify(user));
       // Update sidebar user display
       const name = user.name || user.email;
@@ -685,6 +687,7 @@ function verifyAdminUser(token) {
       const user = JSON.parse(saved);
       if ((user.email || '').toLowerCase() === ADMIN_EMAIL) {
         document.getElementById('auth-gate').classList.add('hidden');
+      loadAdminData(); // Load real data from Supabase
         const name = user.name || user.email;
         const initials = name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0,2);
         document.getElementById('admin-av').textContent = initials;
@@ -700,6 +703,171 @@ function verifyAdminUser(token) {
 </script>
 
 <script>
+const API = '';  // Same origin — Vercel serves both HTML and /api/*
+
+// ── LOAD ALL DATA ON LOGIN ────────────────────────────────────────────────────
+async function loadAdminData() {
+  try {
+    const [dashRes, clientsRes, reviewsRes] = await Promise.all([
+      fetch(`${API}/api/dashboard`),
+      fetch(`${API}/api/clients`),
+      fetch(`${API}/api/reviews?status=pending&limit=20`)
+    ]);
+    const { activeClients, reviewsThisWeek, pendingReviews, crisisCount, monthlyRevenue, topClients, recentAlerts } = await dashRes.json();
+    const { clients } = await clientsRes.json();
+    const { reviews: pendingReviewsList } = await reviewsRes.json();
+
+    // ── KPI cards ──
+    $('kpi-clients').textContent   = activeClients ?? '—';
+    $('kpi-reviews').textContent   = reviewsThisWeek ?? '—';
+    $('kpi-pending').textContent   = pendingReviews ?? '—';
+
+    // Update nav badges
+    document.querySelectorAll('.badge-queue').forEach(b => b.textContent = pendingReviews || 0);
+    document.querySelectorAll('.badge-crisis').forEach(b => b.textContent = crisisCount || 0);
+
+    // Update topbar sub
+    const sub = document.getElementById('topbar-sub');
+    if (sub) {
+      const d = new Date();
+      sub.textContent = `${d.toLocaleDateString('en-IN', {weekday:'long', day:'numeric', month:'long'})} · Last sync just now · ${pendingReviews} reviews need your attention`;
+    }
+
+    // ── Client table ──
+    renderClientTable(clients || []);
+    renderClientRatings(topClients || clients?.slice(0,5) || []);
+
+    // ── Review queue ──
+    renderReviewQueue(pendingReviewsList || []);
+
+    // ── Recent alerts ──
+    renderAlerts(recentAlerts || []);
+
+  } catch(err) {
+    console.error('Admin data load error:', err);
+  }
+}
+
+function $(id) { return document.getElementById(id); }
+
+function timeAgo(iso) {
+  if (!iso) return '—';
+  const diff = Date.now() - new Date(iso).getTime();
+  const mins = Math.floor(diff / 60000);
+  if (mins < 60) return `${mins}m ago`;
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return `${hrs}h ago`;
+  return `${Math.floor(hrs/24)}d ago`;
+}
+
+function renderClientTable(clients) {
+  const ct = $('client-table');
+  if (!ct) return;
+  if (!clients.length) { ct.innerHTML = '<div style="padding:20px;text-align:center;color:var(--faint)">No clients yet</div>'; return; }
+  ct.innerHTML = clients.map(c => {
+    const av = (c.name || '').split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+    const ratingCol = (c.reputation_score||0) >= 4 ? 'var(--green)' : c.reputation_score >= 3.5 ? 'var(--amber)' : 'var(--red)';
+    const statusDot = c.status === 'active' ? '#2ea87a' : '#d97706';
+    return `<div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:0;padding:10px 16px;border-bottom:1px solid var(--border);align-items:center;cursor:pointer;transition:background .1s" onmouseover="this.style.background='#f8f8f5'" onmouseout="this.style.background=''">
+      <div style="display:flex;align-items:center;gap:9px"><div style="width:28px;height:28px;border-radius:7px;background:var(--green-light);color:var(--green-dark);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500">${av}</div><div><div style="font-size:12px;font-weight:500">${c.name}</div><div style="font-size:10px;color:var(--faint)">${c.business_type||''} · ${c.city||''}</div></div></div>
+      <div style="font-size:13px;font-weight:500;color:${ratingCol}">${c.reputation_score ? c.reputation_score+'★' : '—'}</div>
+      <div><span style="font-size:11px;padding:2px 8px;border-radius:99px;background:var(--green-light);color:var(--green-dark);text-transform:capitalize">${c.plan || 'Beta'}</span></div>
+      <div style="font-size:12px">${c.pending_reviews || 0}</div>
+      <div style="display:flex;align-items:center;gap:5px"><div style="width:7px;height:7px;border-radius:50%;background:${statusDot}"></div><span style="font-size:11px;color:var(--muted)">${c.status === 'active' ? 'Active' : 'Inactive'}</span></div>
+    </div>`;
+  }).join('');
+}
+
+function renderClientRatings(clients) {
+  const cr = $('client-ratings');
+  if (!cr) return;
+  cr.innerHTML = clients.slice(0,5).map(c => {
+    const av = (c.name||'').split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+    const score = c.reputation_score || c.avg_rating || '—';
+    const ratingCol = score >= 4 ? 'var(--green)' : score >= 3.5 ? 'var(--amber)' : 'var(--red)';
+    return `<div class="client-row">
+      <div class="client-av" style="background:var(--green-light);color:var(--green-dark)">${av}</div>
+      <div class="client-info"><div class="name">${c.name}</div><div class="type">${c.business_type||''} · ${c.city||''}</div></div>
+      <div class="client-stat"><div class="client-rating" style="color:${ratingCol}">${score} ★</div></div>
+      <div class="status-dot" style="background:${c.status==='active'?'var(--green-mid)':'var(--amber)'}"></div>
+    </div>`;
+  }).join('');
+}
+
+function renderReviewQueue(reviews) {
+  const qc = $('queue-card');
+  if (!qc) return;
+  if (!reviews.length) { qc.innerHTML = '<div style="padding:24px;text-align:center;color:var(--faint);font-size:12px">No pending reviews 🎉</div>'; return; }
+  qc.innerHTML = reviews.slice(0,5).map(rv => {
+    const clientName = rv.clients?.name || 'Unknown';
+    const av = clientName.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+    const stars = '★'.repeat(rv.rating) + '<span style="color:#ddd">' + '★'.repeat(5-rv.rating) + '</span>';
+    const starCol = rv.rating <= 2 ? 'var(--red)' : rv.rating <= 3 ? 'var(--amber)' : 'var(--green)';
+    const urgentBadge = rv.is_urgent
+      ? '<span class="urgent-pill pill-red">Crisis</span>'
+      : rv.rating <= 2 ? '<span class="urgent-pill pill-red">Urgent</span>' : '<span class="urgent-pill pill-green">Normal</span>';
+    const platformTag = rv.platform === 'Google'
+      ? '<span class="platform-tag" style="background:#eff6ff;color:#1d4ed8">Google</span>'
+      : `<span class="platform-tag" style="background:#f5f3ff;color:#5b21b6">${rv.platform||'Unknown'}</span>`;
+    const aiSection = rv.ai_response
+      ? `<div class="ai-response"><div class="ai-label">✓ Claude AI response (ready to post)</div><div class="ai-body">${rv.ai_response}</div></div>`
+      : `<div class="ai-response" style="background:#fafafa"><div class="ai-label" style="color:var(--faint)">⏳ Generating AI response...</div></div>`;
+    return `<div class="review">
+      <div class="review-meta">
+        <div class="biz-chip"><div class="biz-av" style="background:var(--green-light);color:var(--green-dark)">${av}</div><div><div class="biz-name">${clientName}</div></div></div>
+        ${platformTag}
+        <div class="star-row" style="color:${starCol}">${stars}</div>
+        <span class="review-time">${timeAgo(rv.created_at)}</span>
+        ${urgentBadge}
+      </div>
+      <div class="review-body">"${rv.review_text}"</div>
+      ${aiSection}
+      <div class="review-btns">
+        <button class="btn-sm btn-approve" onclick="approveReview('${rv.id}', this)">Approve & post</button>
+        <button class="btn-sm btn-edit" onclick="alert('Edit mode — modify the AI response')">Edit</button>
+        <button class="btn-sm btn-skip">Skip</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function approveReview(id, btn) {
+  btn.textContent = 'Posting...';
+  btn.disabled = true;
+  try {
+    await fetch(`${API}/api/review`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id, response_status: 'approved' })
+    });
+    btn.closest('.review').style.opacity = '0.4';
+    btn.textContent = '✓ Posted';
+  } catch(e) {
+    btn.textContent = 'Error — retry';
+    btn.disabled = false;
+  }
+}
+
+function renderAlerts(alerts) {
+  const ac = $('alerts-card');
+  if (!ac) return;
+  if (!alerts.length) { ac.innerHTML = '<div style="padding:16px;text-align:center;color:var(--faint);font-size:12px">No recent alerts</div>'; return; }
+  ac.innerHTML = alerts.slice(0,3).map(a => {
+    const isRed = a.type === 'crisis' || a.severity === 'high';
+    return `<div class="alert-row">
+      <div class="alert-icon" style="background:${isRed ? '#fee2e2' : 'var(--green-light)'}">
+        ${isRed ? '<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 3v4M7 9.5v.5" stroke="#dc2626" stroke-width="1.5" stroke-linecap="round"/><circle cx="7" cy="7" r="5.5" stroke="#dc2626" stroke-width="1"/></svg>'
+                : '<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-6" stroke="var(--green)" stroke-width="1.5" stroke-linecap="round"/></svg>'}
+      </div>
+      <div class="alert-content">
+        <div class="alert-title">${a.clients?.name || ''} — ${a.title || a.message || 'Alert'}</div>
+        <div class="alert-desc">${a.description || a.message || ''}</div>
+      </div>
+      <div class="alert-time">${timeAgo(a.created_at)}</div>
+    </div>`;
+  }).join('');
+}
+
 const clients = [
   { av:'SD', avBg:'#e8f5ef', avCol:'#085041', name:'Sharma Dental', type:'Clinic · Delhi', rating:'4.4', ratingCol:'#1a7f5a', trend:'+0.6', plan:'Growth', reviews:31, status:'active' },
   { av:'GH', avBg:'#fef9ee', avCol:'#92400e', name:'The Grill House', type:'Restaurant · Mumbai', rating:'4.2', ratingCol:'#1a7f5a', trend:'+0.3', plan:'Growth', reviews:28, status:'active' },
