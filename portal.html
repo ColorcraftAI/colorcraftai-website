@@ -1036,13 +1036,20 @@ function fetchGoogleUser(token) {
 function handleUserLogin(user) {
   hideAuthGate();
   const email = (user.email || user.Email || '').toLowerCase();
+
+  // ── Admin redirect ──────────────────────────────────────────────────────────
+  if (email === 'info@colorcraftai.in') {
+    window.location.href = '/admin.html';
+    return;
+  }
+
   const slug = CLIENT_MAP[email];
   if (slug) {
-    // Known client → load their portal
+    // Known client → load their dashboard
     loadPortalForClient(slug, user);
   } else if (email) {
     // Email present but not in CLIENT_MAP yet →
-    // Still load the portal with demo data (don't block them with onboarding)
+    // Still load the dashboard with demo data (don't block them with onboarding)
     loadPortalForClient('sharma-dental', user);
   } else {
     // No email at all → show onboarding
