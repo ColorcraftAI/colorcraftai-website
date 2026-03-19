@@ -305,9 +305,11 @@
     <a href="#reviews">Testimonials</a>
   </div>
   <div class="nav-right">
-    <!-- Logged-out state -->
-    <a class="btn-ghost" href="#" id="nav-login" onclick="openAuth('login');return false;" style="font-weight:400;">Log in</a>
-    <a class="btn-green" href="#" id="nav-signup" onclick="openAuth('signup');return false;" style="text-decoration:none;display:inline-flex;align-items:center;border-radius:8px;padding:9px 20px;font-size:14px;font-weight:500;">Start free trial</a>
+    <!-- Logged-out state: single button -->
+    <a class="btn-green" href="#" id="nav-signin" onclick="openAuth('signup');return false;" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;border-radius:8px;padding:9px 20px;font-size:14px;font-weight:500;">
+      <svg width="16" height="16" viewBox="0 0 48 48"><path fill="#fff" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.08 17.74 9.5 24 9.5z" opacity=".9"/><path fill="#fff" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z" opacity=".9"/><path fill="#fff" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z" opacity=".9"/><path fill="#fff" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-3.59-13.46-8.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" opacity=".9"/></svg>
+      Sign in with Google
+    </a>
     <!-- Logged-in state -->
     <div class="user-pill" id="user-pill" onclick="toggleUserMenu()">
       <div class="user-avatar" id="user-avatar">?</div>
@@ -335,14 +337,13 @@
   <div class="auth-modal">
     <button class="auth-close" onclick="closeAuth()">✕</button>
     <div class="auth-logo">Colorcraft<em>AI</em></div>
-    <h2 class="auth-title" id="auth-title">Welcome back</h2>
-    <p class="auth-sub" id="auth-sub">Sign in to manage your reputation dashboard</p>
+    <h2 class="auth-title">Sign in to get started</h2>
+    <p class="auth-sub">One click to manage your reputation — no password needed</p>
     <button class="google-btn" onclick="triggerGoogleLogin()">
       <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.08 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-3.59-13.46-8.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
       Continue with Google
     </button>
     <p class="auth-note">By continuing, you agree to our <a href="privacy.html">Privacy Policy</a> and <a href="#">Terms of Service</a>.</p>
-    <span class="auth-toggle-link" onclick="toggleAuthMode()" id="auth-toggle"></span>
   </div>
 </div>
 
@@ -860,11 +861,8 @@
 <script>
 // ── COLORCRAFTAI GOOGLE OAUTH ─────────────────────────────
 const CLIENT_ID = '448046661768-e2d881kgil35c50rtuoh5njgu168m0ab.apps.googleusercontent.com';
-let authMode = 'login';
 
-function openAuth(mode) {
-  authMode = mode || 'login';
-  updateModalText();
+function openAuth() {
   document.getElementById('auth-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -874,20 +872,6 @@ function closeAuth() {
 }
 function handleOverlayClick(e) {
   if (e.target === document.getElementById('auth-overlay')) closeAuth();
-}
-function toggleAuthMode() {
-  authMode = authMode === 'login' ? 'signup' : 'login';
-  updateModalText();
-}
-function updateModalText() {
-  const isLogin = authMode === 'login';
-  document.getElementById('auth-title').textContent = isLogin ? 'Welcome back' : 'Start your free month';
-  document.getElementById('auth-sub').textContent = isLogin
-    ? 'Sign in to manage your reputation dashboard'
-    : 'Create your account — no credit card needed';
-  document.getElementById('auth-toggle').textContent = isLogin
-    ? "Don't have an account? Sign up free →"
-    : 'Already have an account? Log in →';
 }
 
 function triggerGoogleLogin() {
@@ -910,9 +894,7 @@ function fetchUserInfo(token) {
     sessionStorage.setItem('ccai_user', JSON.stringify(user));
     updateNavForUser(user);
     closeAuth();
-    if (authMode === 'signup') {
-      setTimeout(() => { window.location.href = 'portal.html'; }, 400);
-    }
+    setTimeout(() => { window.location.href = 'portal.html'; }, 400);
   });
 }
 
@@ -921,8 +903,7 @@ function getUser() {
 }
 
 function updateNavForUser(user) {
-  document.getElementById('nav-login').style.display = 'none';
-  document.getElementById('nav-signup').style.display = 'none';
+  document.getElementById('nav-signin').style.display = 'none';
   const pill = document.getElementById('user-pill');
   pill.classList.add('visible');
   const av = document.getElementById('user-avatar');
@@ -936,8 +917,7 @@ function updateNavForUser(user) {
 }
 
 function updateNavForLoggedOut() {
-  document.getElementById('nav-login').style.display = '';
-  document.getElementById('nav-signup').style.display = '';
+  document.getElementById('nav-signin').style.display = '';
   document.getElementById('user-pill').classList.remove('visible');
 }
 
@@ -961,7 +941,6 @@ document.addEventListener('click', (e) => {
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAuth(); });
 
 window.addEventListener('load', () => {
-  updateModalText();
   const user = getUser();
   if (user) updateNavForUser(user);
 });
