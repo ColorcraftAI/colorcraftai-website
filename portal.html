@@ -28,16 +28,7 @@ body{display:flex}
 .logo-nm{font-size:13px;font-weight:500;letter-spacing:-.01em}
 .logo-sub{font-size:10px;color:var(--fa)}
 
-.score-card{margin:10px;border-radius:10px;background:var(--tx);padding:12px;position:relative;overflow:hidden}
-.score-card::before{content:'';position:absolute;top:-20px;right:-20px;width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.04)}
-.sc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px}
-.sc-lbl{font-size:9px;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px}
-.sc-val{font-family:var(--serif);font-size:32px;color:#fff;line-height:1}
-.sc-ring svg{width:38px;height:38px}
-.sc-bar-bg{height:3px;border-radius:99px;background:rgba(255,255,255,.12);margin-bottom:5px}
-.sc-bar{height:3px;border-radius:99px;background:var(--gm);width:84%}
-.sc-sub{font-size:10px;color:rgba(255,255,255,.5)}
-.sc-sub span{color:var(--gm);font-weight:500}
+
 
 .nav{flex:1;padding:8px;overflow-y:auto}
 .nav-sec{font-size:9px;color:var(--fa);text-transform:uppercase;letter-spacing:.1em;padding:8px 8px 4px}
@@ -286,23 +277,6 @@ body{display:flex}
     <div class="logo-sub" style="font-size:10px;color:#aaa;margin-top:2px;">Client Portal</div>
   </div>
 
-  <!-- Score card -->
-  <div class="score-card">
-    <div class="sc-top">
-      <div>
-        <div class="sc-lbl">Google Rating</div>
-        <div class="sc-val" style="font-size:26px;display:flex;align-items:baseline;gap:2px">4.4<span style="font-size:14px;color:#22c47a">★</span></div>
-      </div>
-      <svg width="38" height="38" viewBox="0 0 38 38">
-        <circle cx="19" cy="19" r="16" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="3"/>
-        <circle cx="19" cy="19" r="16" fill="none" stroke="#22c47a" stroke-width="3"
-          stroke-dasharray="88 13" stroke-dashoffset="25" stroke-linecap="round"/>
-      </svg>
-    </div>
-    <div class="sc-bar-bg"><div class="sc-bar" style="width:88%"></div></div>
-    <div class="sc-sub">▲ <span>+0.8</span> since joining ColorcraftAI</div>
-  </div>
-
   <div class="nav">
     <div class="nav-sec">Overview</div>
     <div class="ni act" onclick="go('overview',this,'Overview')"><div class="ni-ic">◈</div>Dashboard</div>
@@ -356,10 +330,10 @@ body{display:flex}
     <div id="sc-overview" class="sc act">
 
       <!-- ══ REPUTATION SCORE HERO ══ -->
-      <div style="background:linear-gradient(135deg,#0d1f13 0%,#0f2a1a 50%,#112e1c 100%);border-radius:14px;padding:24px 28px;margin-bottom:16px;position:relative;overflow:hidden">
+      <div style="background:#fff;border:1px solid var(--bd);border-radius:14px;padding:24px 28px;margin-bottom:16px;position:relative;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.05)">
         <!-- background decoration -->
-        <div style="position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:rgba(34,196,122,.06);pointer-events:none"></div>
-        <div style="position:absolute;bottom:-30px;left:60px;width:120px;height:120px;border-radius:50%;background:rgba(34,196,122,.04);pointer-events:none"></div>
+        <div style="position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:rgba(34,196,122,.08);pointer-events:none"></div>
+        <div style="position:absolute;bottom:-30px;left:60px;width:120px;height:120px;border-radius:50%;background:rgba(34,196,122,.05);pointer-events:none"></div>
 
         <div style="display:flex;align-items:center;gap:28px;flex-wrap:wrap">
 
@@ -367,31 +341,31 @@ body{display:flex}
           <div style="position:relative;flex-shrink:0">
             <svg width="110" height="110" viewBox="0 0 110 110">
               <!-- track -->
-              <circle cx="55" cy="55" r="46" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="8"/>
+              <circle cx="55" cy="55" r="46" fill="none" stroke="#eef2ef" stroke-width="8"/>
               <!-- score arc (84% of 251.2 = 211) -->
               <circle cx="55" cy="55" r="46" fill="none" stroke="#22c47a" stroke-width="8"
                 stroke-dasharray="211 40.2" stroke-dashoffset="62.8" stroke-linecap="round"
                 style="transition:stroke-dasharray .8s ease"/>
               <!-- glow -->
-              <circle cx="55" cy="55" r="46" fill="none" stroke="#22c47a" stroke-width="2" opacity=".3"
+              <circle cx="55" cy="55" r="46" fill="none" stroke="#22c47a" stroke-width="2" opacity=".2"
                 stroke-dasharray="211 40.2" stroke-dashoffset="62.8" stroke-linecap="round"/>
             </svg>
             <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center">
-              <div style="font-family:'Fraunces',serif;font-size:30px;font-weight:600;color:#fff;line-height:1">84</div>
-              <div style="font-size:9px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.08em">/100</div>
+              <div style="font-family:'Fraunces',serif;font-size:30px;font-weight:600;color:var(--tx);line-height:1">84</div>
+              <div style="font-size:9px;color:var(--mu);text-transform:uppercase;letter-spacing:.08em">/100</div>
             </div>
           </div>
 
           <!-- Score label + trend -->
           <div style="flex:1;min-width:160px">
-            <div style="font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.45);margin-bottom:4px">ColorcraftAI Score</div>
-            <div style="font-family:'Fraunces',serif;font-size:22px;color:#fff;font-weight:500;margin-bottom:2px">Excellent</div>
+            <div style="font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--mu);margin-bottom:4px">ColorcraftAI Score</div>
+            <div style="font-family:'Fraunces',serif;font-size:22px;color:var(--tx);font-weight:500;margin-bottom:2px">Excellent</div>
             <div style="font-size:12px;color:#22c47a;display:flex;align-items:center;gap:4px;margin-bottom:12px">
               <span>▲ +11 pts this month</span>
-              <span style="color:rgba(255,255,255,.3)">·</span>
-              <span style="color:rgba(255,255,255,.4)">Was 73 in Oct</span>
+              <span style="color:var(--fa)">·</span>
+              <span style="color:var(--mu)">Was 73 in Oct</span>
             </div>
-            <div style="font-size:11px;color:rgba(255,255,255,.5);line-height:1.6;max-width:280px">Your reputation is in the top <strong style="color:#22c47a">8%</strong> of dental clinics in South Delhi.</div>
+            <div style="font-size:11px;color:var(--mu);line-height:1.6;max-width:280px">Your reputation is in the top <strong style="color:#22c47a">8%</strong> of dental clinics in South Delhi.</div>
           </div>
 
           <!-- Sub-score bars -->
@@ -399,50 +373,50 @@ body{display:flex}
 
             <div>
               <div style="display:flex;justify-content:space-between;margin-bottom:4px">
-                <span style="font-size:11px;color:rgba(255,255,255,.6)">⭐ Google Rating</span>
-                <span style="font-size:11px;font-weight:600;color:#fff">4.4 / 5.0 <span style="color:#22c47a;font-size:10px">▲+0.8</span></span>
+                <span style="font-size:11px;color:var(--mu)">⭐ Google Rating</span>
+                <span style="font-size:11px;font-weight:600;color:var(--tx)">4.4 / 5.0 <span style="color:#22c47a;font-size:10px">▲+0.8</span></span>
               </div>
-              <div style="background:rgba(255,255,255,.08);border-radius:4px;height:5px">
+              <div style="background:#eef0ed;border-radius:4px;height:5px">
                 <div style="width:88%;height:100%;background:#22c47a;border-radius:4px"></div>
               </div>
             </div>
 
             <div>
               <div style="display:flex;justify-content:space-between;margin-bottom:4px">
-                <span style="font-size:11px;color:rgba(255,255,255,.6)">💬 Review Volume</span>
-                <span style="font-size:11px;font-weight:600;color:#fff">31 reviews <span style="color:#22c47a;font-size:10px">▲+8</span></span>
+                <span style="font-size:11px;color:var(--mu)">💬 Review Volume</span>
+                <span style="font-size:11px;font-weight:600;color:var(--tx)">31 reviews <span style="color:#22c47a;font-size:10px">▲+8</span></span>
               </div>
-              <div style="background:rgba(255,255,255,.08);border-radius:4px;height:5px">
+              <div style="background:#eef0ed;border-radius:4px;height:5px">
                 <div style="width:72%;height:100%;background:#22c47a;border-radius:4px"></div>
               </div>
             </div>
 
             <div>
               <div style="display:flex;justify-content:space-between;margin-bottom:4px">
-                <span style="font-size:11px;color:rgba(255,255,255,.6)">⚡ Response Rate</span>
-                <span style="font-size:11px;font-weight:600;color:#fff">94% <span style="color:#22c47a;font-size:10px">▲+14%</span></span>
+                <span style="font-size:11px;color:var(--mu)">⚡ Response Rate</span>
+                <span style="font-size:11px;font-weight:600;color:var(--tx)">94% <span style="color:#22c47a;font-size:10px">▲+14%</span></span>
               </div>
-              <div style="background:rgba(255,255,255,.08);border-radius:4px;height:5px">
+              <div style="background:#eef0ed;border-radius:4px;height:5px">
                 <div style="width:94%;height:100%;background:#22c47a;border-radius:4px"></div>
               </div>
             </div>
 
             <div>
               <div style="display:flex;justify-content:space-between;margin-bottom:4px">
-                <span style="font-size:11px;color:rgba(255,255,255,.6)">😊 Sentiment</span>
-                <span style="font-size:11px;font-weight:600;color:#fff">87% positive <span style="color:#22c47a;font-size:10px">▲+9%</span></span>
+                <span style="font-size:11px;color:var(--mu)">😊 Sentiment</span>
+                <span style="font-size:11px;font-weight:600;color:var(--tx)">87% positive <span style="color:#22c47a;font-size:10px">▲+9%</span></span>
               </div>
-              <div style="background:rgba(255,255,255,.08);border-radius:4px;height:5px">
+              <div style="background:#eef0ed;border-radius:4px;height:5px">
                 <div style="width:87%;height:100%;background:#22c47a;border-radius:4px"></div>
               </div>
             </div>
 
             <div>
               <div style="display:flex;justify-content:space-between;margin-bottom:4px">
-                <span style="font-size:11px;color:rgba(255,255,255,.6)">🗓️ Recency</span>
-                <span style="font-size:11px;font-weight:600;color:#fff">Last review: Today</span>
+                <span style="font-size:11px;color:var(--mu)">🗓️ Recency</span>
+                <span style="font-size:11px;font-weight:600;color:var(--tx)">Last review: Today</span>
               </div>
-              <div style="background:rgba(255,255,255,.08);border-radius:4px;height:5px">
+              <div style="background:#eef0ed;border-radius:4px;height:5px">
                 <div style="width:96%;height:100%;background:#22c47a;border-radius:4px"></div>
               </div>
             </div>
@@ -450,47 +424,47 @@ body{display:flex}
           </div>
 
           <!-- Right: competitor benchmark -->
-          <div style="flex-shrink:0;min-width:150px;border-left:1px solid rgba(255,255,255,.07);padding-left:24px">
-            <div style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.4);margin-bottom:12px">vs Competitors</div>
+          <div style="flex-shrink:0;min-width:150px;border-left:1px solid var(--bd);padding-left:24px">
+            <div style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--mu);margin-bottom:12px">vs Competitors</div>
 
             <div style="display:flex;flex-direction:column;gap:8px">
               <div style="display:flex;align-items:center;gap:8px">
                 <div style="width:6px;height:6px;border-radius:50%;background:#22c47a;flex-shrink:0"></div>
                 <div style="flex:1">
-                  <div style="font-size:10px;color:rgba(255,255,255,.7);font-weight:600">Sharma Dental</div>
-                  <div style="font-size:9px;color:rgba(255,255,255,.35)">You · #1</div>
+                  <div style="font-size:10px;color:var(--tx);font-weight:600">Sharma Dental</div>
+                  <div style="font-size:9px;color:var(--mu)">You · #1</div>
                 </div>
                 <div style="font-size:12px;font-weight:700;color:#22c47a">84</div>
               </div>
               <div style="display:flex;align-items:center;gap:8px;opacity:.7">
                 <div style="width:6px;height:6px;border-radius:50%;background:#868e96;flex-shrink:0"></div>
                 <div style="flex:1">
-                  <div style="font-size:10px;color:rgba(255,255,255,.5)">Smile Dental</div>
-                  <div style="font-size:9px;color:rgba(255,255,255,.25)">#2</div>
+                  <div style="font-size:10px;color:var(--mu)">Smile Dental</div>
+                  <div style="font-size:9px;color:var(--fa)">#2</div>
                 </div>
-                <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.5)">71</div>
+                <div style="font-size:12px;font-weight:700;color:var(--mu)">71</div>
               </div>
               <div style="display:flex;align-items:center;gap:8px;opacity:.6">
                 <div style="width:6px;height:6px;border-radius:50%;background:#868e96;flex-shrink:0"></div>
                 <div style="flex:1">
-                  <div style="font-size:10px;color:rgba(255,255,255,.4)">City Dental</div>
-                  <div style="font-size:9px;color:rgba(255,255,255,.2)">#3</div>
+                  <div style="font-size:10px;color:var(--mu)">City Dental</div>
+                  <div style="font-size:9px;color:var(--fa)">#3</div>
                 </div>
-                <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.4)">64</div>
+                <div style="font-size:12px;font-weight:700;color:var(--fa)">64</div>
               </div>
               <div style="display:flex;align-items:center;gap:8px;opacity:.5">
                 <div style="width:6px;height:6px;border-radius:50%;background:#868e96;flex-shrink:0"></div>
                 <div style="flex:1">
-                  <div style="font-size:10px;color:rgba(255,255,255,.3)">Area avg</div>
+                  <div style="font-size:10px;color:var(--fa)">Area avg</div>
                 </div>
-                <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.3)">58</div>
+                <div style="font-size:12px;font-weight:700;color:var(--fa)">58</div>
               </div>
             </div>
 
-            <div style="margin-top:14px;padding:8px 10px;background:rgba(34,196,122,.1);border:1px solid rgba(34,196,122,.2);border-radius:8px">
+            <div style="margin-top:14px;padding:8px 10px;background:var(--gl);border:1px solid #c3e6d5;border-radius:8px">
               <div style="font-size:9px;color:#22c47a;font-weight:600;text-transform:uppercase;letter-spacing:.08em">Area Rank</div>
-              <div style="font-family:'Fraunces',serif;font-size:20px;color:#fff;font-weight:500">#1</div>
-              <div style="font-size:9px;color:rgba(255,255,255,.4)">Up from #6 in Oct</div>
+              <div style="font-family:'Fraunces',serif;font-size:20px;color:var(--gd);font-weight:500">#1</div>
+              <div style="font-size:9px;color:var(--mu)">Up from #6 in Oct</div>
             </div>
           </div>
 
@@ -1146,18 +1120,7 @@ async function loadClientData(slug) {
     if (!client) return;
 
     // Update score card
-    const scVal = document.querySelector('.sc-val');
-    if (scVal && client.avg_rating) {
-      // Sidebar shows Google Rating — keep the ★ symbol
-      scVal.innerHTML = client.avg_rating.toFixed(1) + '<span style="font-size:14px;color:#22c47a">★</span>';
-    }
-
-    // Update sidebar score bar
-    const scBar = document.querySelector('.sc-bar');
-    if (scBar && client.avg_rating) {
-      // Google rating out of 5.0 → percentage
-      scBar.style.width = `${(client.avg_rating / 5 * 100).toFixed(0)}%`;
-    }
+    // Sidebar score card removed
 
     // Update pending badge in nav
     if (client.pending_reviews > 0) {
