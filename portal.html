@@ -1039,12 +1039,17 @@ function fetchGoogleUser(token) {
 
 function handleUserLogin(user) {
   hideAuthGate();
-  const slug = CLIENT_MAP[user.email?.toLowerCase()];
+  const email = (user.email || user.Email || '').toLowerCase();
+  const slug = CLIENT_MAP[email];
   if (slug) {
     // Known client → load their portal
     loadPortalForClient(slug, user);
+  } else if (email) {
+    // Email present but not in CLIENT_MAP yet →
+    // Still load the portal with demo data (don't block them with onboarding)
+    loadPortalForClient('sharma-dental', user);
   } else {
-    // Unknown client → show onboarding
+    // No email at all → show onboarding
     showOnboarding();
   }
 }
@@ -1065,21 +1070,27 @@ function loadPortalForClient(slug, user) {
 }
 
 // ── PLACES AUTOCOMPLETE (disabled — GBP API pending approval) ────────────────
-// When Google approves GBP API, this will be replaced with:
-// google.accounts.oauth2 with scope 'business.manage'
-// and Place ID will come automatically from the GBP connection.
 function initPlacesAutocomplete() { /* noop — GBP flow coming */ }
 function setupAutocomplete() { /* noop */ }
 window.onMapsLoaded = function() { /* noop */ };
+function skipOnboarding() {
+  hideOnboarding();
+  if (currentUser) loadPortalForClient('sharma-dental', currentUser);
+  else loadClientData('sharma-dental');
+}
 function completeOnboarding() { skipOnboarding(); }
 
 // ── INIT ON PAGE LOAD ─────────────────────────────────────────────────────────
 (function init() {
   // Check if already logged in (from index.html session)
-  const stored = sessionStorage.getItem('ccai_portal_user') || sessionStorage.getItem('ccai_user');
+  const stored = sessionStorage.getItem('ccai_portal_user') 
+              || sessionStorage.getItem('ccai_user')
+              || sessionStorage.getItem('ccai_session');
   if (stored) {
     try {
       const user = JSON.parse(stored);
+      // Normalise — Google OAuth returns 'email', some flows return 'Email'
+      if (!user.email && user.Email) user.email = user.Email;
       currentUser = user;
       handleUserLogin(user);
       return;
