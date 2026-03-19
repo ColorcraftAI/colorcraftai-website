@@ -140,36 +140,38 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
 @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 .screen.active { animation: fadeIn 0.2s ease; }
 
-/* ── AUTH GATE ── */
-#auth-gate{position:fixed;inset:0;background:#f5f5f2;display:flex;align-items:center;justify-content:center;z-index:9999;font-family:'DM Sans',sans-serif}
+/* AUTH GATE */
+#auth-gate{position:fixed;inset:0;background:#f5f5f2;display:flex;align-items:center;justify-content:center;z-index:9999}
 #auth-gate.hidden{display:none}
 .gate-card{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:40px 44px;width:360px;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.07)}
-.gate-logo{font-family:'Fraunces',serif;font-size:22px;font-weight:500;margin-bottom:4px}
-.gate-logo em{color:#1a7f5a;font-style:italic}
+.gate-logo{font-family:'Fraunces',serif;font-size:22px;font-weight:500;margin-bottom:4px}.gate-logo em{color:#1a7f5a;font-style:italic}
 .gate-badge{display:inline-block;font-size:10px;padding:3px 10px;border-radius:99px;background:#e8f5ef;color:#085041;text-transform:uppercase;letter-spacing:.08em;margin-bottom:24px}
 .gate-title{font-size:20px;font-weight:500;margin-bottom:6px}
 .gate-sub{font-size:13px;color:#6b6b6b;margin-bottom:28px;line-height:1.6}
 .gate-btn{width:100%;padding:11px;border-radius:10px;background:#141414;color:#fff;border:none;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;transition:opacity .15s}
 .gate-btn:hover{opacity:.85}
-.gate-btn svg{flex-shrink:0}
 .gate-error{margin-top:14px;font-size:12px;color:#dc2626;display:none}
 .gate-error.show{display:block}
+.hrow{cursor:pointer;transition:background .1s}
+.hrow:hover{background:#f8f8f5}
+/* LOADING STATE */
+.loading-row{padding:20px;text-align:center;color:var(--faint);font-size:12px;animation:pulse 1.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 </style>
 </head>
 <body>
 
-<!-- ── ADMIN AUTH GATE ── -->
 <div id="auth-gate">
   <div class="gate-card">
     <div class="gate-logo">Colorcraft<em>AI</em></div>
     <div class="gate-badge">Admin Dashboard</div>
-    <div class="gate-title">Sign in to continue</div>
-    <div class="gate-sub">This dashboard is restricted to ColorcraftAI administrators. Sign in with your authorised Google account.</div>
+    <div class="gate-title">Admin Sign In</div>
+    <div class="gate-sub">Restricted to ColorcraftAI administrators only.</div>
     <button class="gate-btn" onclick="triggerAdminLogin()">
       <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.08 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-3.59-13.46-8.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
       Continue with Google
     </button>
-    <div class="gate-error" id="gate-error">Access denied. Only authorised admin accounts can log in.</div>
+    <div class="gate-error" id="gate-error">Access denied. Only info@colorcraftai.in can log in.</div>
   </div>
 </div>
 
@@ -188,12 +190,12 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
     <div class="nav-item" onclick="switchScreen('queue', this)">
       <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.3"/><path d="M5 6h6M5 9h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
       Review queue
-      <span class="nav-badge badge-red badge-queue">—</span>
+      <span class="nav-badge badge-red">7</span>
     </div>
     <div class="nav-item" onclick="switchScreen('alerts', this)">
       <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><path d="M8 2v2M8 12v2M4 4l1.5 1.5M10.5 10.5 12 12M2 8h2M12 8h2M4 12l1.5-1.5M10.5 5.5 12 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><circle cx="8" cy="8" r="2.5" stroke="currentColor" stroke-width="1.3"/></svg>
       Crisis alerts
-      <span class="nav-badge badge-red badge-crisis">—</span>
+      <span class="nav-badge badge-red">2</span>
     </div>
     <div class="nav-section-label">Clients</div>
     <div class="nav-item" onclick="switchScreen('clients', this)">
@@ -216,8 +218,8 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
     </div>
   </nav>
   <div class="sidebar-user">
-    <div class="user-av" id="admin-av">KG</div>
-    <div><div class="user-name" id="admin-name">Loading...</div><div class="user-role">Super admin</div></div>
+    <div class="user-av" id="admin-av">–</div>
+    <div><div class="user-name" id="admin-name">Not signed in</div><div class="user-role">Super admin</div></div>
     <div class="user-dot"></div>
   </div>
 </div>
@@ -242,22 +244,22 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
         <div class="kpi">
           <div class="kpi-label">Active clients</div>
           <div class="kpi-value" id="kpi-clients" style="color:var(--text)">—</div>
-          <div class="kpi-change" style="color:var(--green)">▲ +2 this month</div>
+          <div class="kpi-change" id="kpi-clients-sub" style="color:var(--green)">Loading...</div>
         </div>
         <div class="kpi">
           <div class="kpi-label">Reviews this week</div>
           <div class="kpi-value" id="kpi-reviews" style="color:var(--text)">—</div>
-          <div class="kpi-change" style="color:var(--green)">▲ +18 vs last week</div>
+          <div class="kpi-change" id="kpi-reviews-sub" style="color:var(--green)">Loading...</div>
         </div>
         <div class="kpi">
           <div class="kpi-label">Pending approval</div>
           <div class="kpi-value" id="kpi-pending" style="color:var(--red)">—</div>
-          <div class="kpi-change" style="color:var(--red)">Needs action today</div>
+          <div class="kpi-change" id="kpi-pending-sub" style="color:var(--red)">Loading...</div>
         </div>
         <div class="kpi">
           <div class="kpi-label">Monthly revenue</div>
-          <div class="kpi-value" style="color:var(--green)">₹1.38L</div>
-          <div class="kpi-change" style="color:var(--green)">▲ +₹12k this month</div>
+          <div class="kpi-value" id="kpi-revenue" style="color:var(--green)">—</div>
+          <div class="kpi-change" id="kpi-revenue-sub" style="color:var(--green)">Loading...</div>
         </div>
       </div>
 
@@ -265,9 +267,9 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
         <div class="card">
           <div class="card-head">
             <div class="card-title">Review queue — pending approval</div>
-            <span class="card-link" id="queue-link" onclick="switchScreen('queue', document.querySelector('[onclick*=queue]'))">View all →</span>
+            <span class="card-link" id="queue-link-dash" onclick="switchScreen('queue', document.querySelector('[onclick*=queue]'))">View all →</span>
           </div>
-          <div class="review">
+          <div id="dashboard-queue"><div class="review">
             <div class="review-meta">
               <div class="biz-chip">
                 <div class="biz-av" style="background:#e8f5ef;color:#085041">SD</div>
@@ -342,7 +344,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
               <button class="btn-sm btn-skip">Skip for now</button>
             </div>
           </div>
-        </div>
+        </div></div>
 
         <div class="grid-col">
           <div class="card">
@@ -350,7 +352,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
               <div class="card-title">Client ratings</div>
               <span class="card-link">Manage all →</span>
             </div>
-            <div id="client-ratings"><div class="client-row">
+            <div id="client-ratings-dash"><div class="client-row">
               <div class="client-av" style="background:#e8f5ef;color:#085041">SD</div>
               <div class="client-info"><div class="name">Sharma Dental</div><div class="type">Clinic · Delhi</div></div>
               <div class="client-stat"><div class="client-rating" style="color:var(--green)">4.4 ★</div><div class="client-trend" style="color:var(--green)">+0.6 this month</div></div>
@@ -382,7 +384,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
             </div>
           </div>
 
-</div>
+          </div></div>
           <div class="card">
             <div class="card-head">
               <div class="card-title">Revenue — last 6 months</div>
@@ -408,7 +410,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
 
           <div class="card">
             <div class="card-head"><div class="card-title">Recent alerts</div><span class="card-link">View all →</span></div>
-            <div id="alerts-card"><div class="alert-row">
+            <div id="alerts-dash"><div class="alert-row">
               <div class="alert-icon" style="background:#fee2e2">
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 3v4M7 9.5v.5" stroke="#dc2626" stroke-width="1.5" stroke-linecap="round"/><circle cx="7" cy="7" r="5.5" stroke="#dc2626" stroke-width="1"/></svg>
               </div>
@@ -448,9 +450,9 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
         <div>
           <div style="font-size:16px;font-weight:500;">Review queue</div>
-          <div style="font-size:12px;color:var(--faint);margin-top:2px;">7 reviews awaiting your approval before posting</div>
+          <div style="font-size:12px;color:var(--faint);margin-top:2px;" id="queue-subtitle">Loading reviews...</div>
         </div>
-        <button class="btn btn-primary" onclick="alert('Bulk approving all 7 reviews...')">Approve all 7</button>
+        <button class="btn btn-primary" onclick="approveAll()">Approve all</button>
       </div>
       <div class="card" id="queue-card">
         <div class="review">
@@ -516,7 +518,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
     <!-- CLIENTS SCREEN -->
     <div id="screen-clients" class="screen">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
-        <div><div style="font-size:16px;font-weight:500;">All clients</div><div style="font-size:12px;color:var(--faint);margin-top:2px;">23 active clients · ₹1.38L monthly revenue</div></div>
+        <div><div style="font-size:16px;font-weight:500;">All clients</div><div style="font-size:12px;color:var(--faint);margin-top:2px;" id="clients-subtitle">Loading...</div></div>
         <button class="btn btn-primary" onclick="alert('Add new client flow — collect business name, Google login, platform preferences')">+ Add client</button>
       </div>
       <div class="card">
@@ -635,291 +637,278 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
 </div>
 
 <script>
-// ── ADMIN AUTH ────────────────────────────────────────────────────────────────
-const ADMIN_EMAIL = 'info@colorcraftai.in';
+// ── CONFIG ────────────────────────────────────────────────────────────────────
+const ADMIN_EMAIL    = 'info@colorcraftai.in';
 const GOOGLE_CLIENT_ID = '448046661768-e2d881kgil35c50rtuoh5njgu168m0ab.apps.googleusercontent.com';
+const API = '';
 
+// ── HELPERS ───────────────────────────────────────────────────────────────────
+function $(id) { return document.getElementById(id); }
+function timeAgo(iso) {
+  if (!iso) return '—';
+  const m = Math.floor((Date.now() - new Date(iso)) / 60000);
+  if (m < 60) return m + 'm ago';
+  if (m < 1440) return Math.floor(m/60) + 'h ago';
+  return Math.floor(m/1440) + 'd ago';
+}
+function fmtRupee(n) {
+  if (!n) return '₹0';
+  return n >= 100000 ? '₹' + (n/100000).toFixed(1) + 'L' : '₹' + n.toLocaleString('en-IN');
+}
+function initials(name) {
+  return (name||'').split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2) || '?';
+}
+
+// ── AUTH ──────────────────────────────────────────────────────────────────────
 function triggerAdminLogin() {
-  if (!window.google) { alert('Loading… please try again in a moment.'); return; }
+  if (!window.google) { alert('Loading… try again in a moment.'); return; }
   google.accounts.oauth2.initTokenClient({
     client_id: GOOGLE_CLIENT_ID,
     scope: 'openid email profile',
-    callback: (resp) => {
-      if (resp.access_token) verifyAdminUser(resp.access_token);
-    },
+    callback: (resp) => { if (resp.access_token) verifyAdmin(resp.access_token); }
   }).requestAccessToken();
 }
 
-function verifyAdminUser(token) {
+function verifyAdmin(token) {
   fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
     headers: { Authorization: 'Bearer ' + token }
-  })
-  .then(r => r.json())
-  .then(user => {
-    const email = (user.email || '').toLowerCase();
-    if (email === ADMIN_EMAIL) {
-      // Authorised — show dashboard
-      document.getElementById('auth-gate').classList.add('hidden');
-      loadAdminData(); // Load real data from Supabase
+  }).then(r => r.json()).then(user => {
+    if ((user.email||'').toLowerCase() === ADMIN_EMAIL) {
       sessionStorage.setItem('ccai_admin_user', JSON.stringify(user));
-      // Update sidebar user display
-      const name = user.name || user.email;
-      const initials = name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0,2);
-      document.getElementById('admin-av').textContent = initials;
-      document.getElementById('admin-name').textContent = name;
-      // Update topbar greeting
-      const hour = new Date().getHours();
-      const greet = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
-      document.getElementById('topbar-title').textContent = `Dashboard — ${greet}`;
+      grantAccess(user);
     } else {
-      // Not authorised
-      document.getElementById('gate-error').classList.add('show');
+      $('gate-error').classList.add('show');
     }
-  })
-  .catch(() => alert('Sign-in failed. Please try again.'));
+  }).catch(() => alert('Sign-in failed. Try again.'));
 }
 
-// Check if already logged in this session
+function grantAccess(user) {
+  $('auth-gate').classList.add('hidden');
+  const name = user.name || user.email;
+  $('admin-av').textContent  = initials(name);
+  $('admin-name').textContent = name;
+  const h = new Date().getHours();
+  $('topbar-title').textContent = 'Dashboard — ' + (h<12?'Good morning':h<18?'Good afternoon':'Good evening');
+  loadAllData();
+}
+
+// Restore session
 (function() {
-  const saved = sessionStorage.getItem('ccai_admin_user');
-  if (saved) {
-    try {
-      const user = JSON.parse(saved);
-      if ((user.email || '').toLowerCase() === ADMIN_EMAIL) {
-        document.getElementById('auth-gate').classList.add('hidden');
-      loadAdminData(); // Load real data from Supabase
-        const name = user.name || user.email;
-        const initials = name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0,2);
-        document.getElementById('admin-av').textContent = initials;
-        document.getElementById('admin-name').textContent = name;
-        const hour = new Date().getHours();
-        const greet = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
-        document.getElementById('topbar-title').textContent = `Dashboard — ${greet}`;
-      }
-    } catch(e) {}
-  }
+  try {
+    const u = JSON.parse(sessionStorage.getItem('ccai_admin_user') || '{}');
+    if ((u.email||'').toLowerCase() === ADMIN_EMAIL) { grantAccess(u); return; }
+  } catch(e) {}
 })();
 
-</script>
+// ── DATA LOADING ──────────────────────────────────────────────────────────────
+let _clients = [], _pending = [], _alerts = [];
 
-<script>
-const API = '';  // Same origin — Vercel serves both HTML and /api/*
-
-// ── LOAD ALL DATA ON LOGIN ────────────────────────────────────────────────────
-async function loadAdminData() {
+async function loadAllData() {
   try {
     const [dashRes, clientsRes, reviewsRes] = await Promise.all([
-      fetch(`${API}/api/dashboard`),
-      fetch(`${API}/api/clients`),
-      fetch(`${API}/api/reviews?status=pending&limit=20`)
+      fetch(API + '/api/dashboard'),
+      fetch(API + '/api/clients'),
+      fetch(API + '/api/reviews?status=pending&limit=50')
     ]);
-    const { activeClients, reviewsThisWeek, pendingReviews, crisisCount, monthlyRevenue, topClients, recentAlerts } = await dashRes.json();
+    const dash    = await dashRes.json();
     const { clients } = await clientsRes.json();
-    const { reviews: pendingReviewsList } = await reviewsRes.json();
+    const { reviews } = await reviewsRes.json();
 
-    // ── KPI cards ──
-    $('kpi-clients').textContent   = activeClients ?? '—';
-    $('kpi-reviews').textContent   = reviewsThisWeek ?? '—';
-    $('kpi-pending').textContent   = pendingReviews ?? '—';
+    _clients = clients || [];
+    _pending  = reviews  || [];
+    _alerts   = dash.recentAlerts || [];
 
-    // Update nav badges
-    document.querySelectorAll('.badge-queue').forEach(b => b.textContent = pendingReviews || 0);
-    document.querySelectorAll('.badge-crisis').forEach(b => b.textContent = crisisCount || 0);
+    // ── KPI Cards ──
+    const ac = dash.activeClients ?? _clients.filter(c=>c.status==='active').length;
+    $('kpi-clients').textContent     = ac;
+    $('kpi-clients-sub').textContent = ac + ' on active plans';
+    $('kpi-reviews').textContent     = dash.reviewsThisWeek ?? '—';
+    $('kpi-reviews-sub').textContent = '▲ this week';
+    $('kpi-pending').textContent     = dash.pendingReviews ?? _pending.length;
+    $('kpi-pending-sub').textContent = 'Needs action today';
+    $('kpi-revenue').textContent     = fmtRupee(dash.monthlyRevenue);
+    $('kpi-revenue-sub').textContent = '▲ Beta period';
 
-    // Update topbar sub
-    const sub = document.getElementById('topbar-sub');
-    if (sub) {
-      const d = new Date();
-      sub.textContent = `${d.toLocaleDateString('en-IN', {weekday:'long', day:'numeric', month:'long'})} · Last sync just now · ${pendingReviews} reviews need your attention`;
-    }
+    // ── Nav Badges ──
+    const pb = dash.pendingReviews ?? _pending.length;
+    const cb = dash.crisisCount    ?? _pending.filter(r=>r.is_urgent).length;
+    document.querySelectorAll('.badge-queue').forEach(b  => b.textContent = pb);
+    document.querySelectorAll('.badge-crisis').forEach(b => b.textContent = cb);
 
-    // ── Client table ──
-    renderClientTable(clients || []);
-    renderClientRatings(topClients || clients?.slice(0,5) || []);
+    // ── Topbar ──
+    const sub = $('topbar-sub');
+    if (sub) sub.textContent = new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long'}) + ' · Last sync just now · ' + pb + ' reviews need your attention';
 
-    // ── Review queue ──
-    renderReviewQueue(pendingReviewsList || []);
+    // ── Clients subtitle ──
+    const cs = $('clients-subtitle');
+    if (cs) cs.textContent = _clients.length + ' clients · Beta period';
 
-    // ── Recent alerts ──
-    renderAlerts(recentAlerts || []);
+    // ── Render all sections ──
+    renderDashboardQueue();
+    renderClientRatings();
+    renderAlerts();
+    renderClientTable();
+    renderQueueScreen();
+    renderBilling();
 
   } catch(err) {
-    console.error('Admin data load error:', err);
+    console.error('Admin data error:', err);
   }
 }
 
-function $(id) { return document.getElementById(id); }
-
-function timeAgo(iso) {
-  if (!iso) return '—';
-  const diff = Date.now() - new Date(iso).getTime();
-  const mins = Math.floor(diff / 60000);
-  if (mins < 60) return `${mins}m ago`;
-  const hrs = Math.floor(mins / 60);
-  if (hrs < 24) return `${hrs}h ago`;
-  return `${Math.floor(hrs/24)}d ago`;
+// ── DASHBOARD MINI QUEUE ──────────────────────────────────────────────────────
+function renderDashboardQueue() {
+  const el = $('dashboard-queue');
+  if (!el) return;
+  const list = _pending.slice(0, 3);
+  if (!list.length) { el.innerHTML = '<div class="loading-row">No pending reviews 🎉</div>'; return; }
+  el.innerHTML = list.map(rv => reviewCard(rv)).join('');
 }
 
-function renderClientTable(clients) {
-  const ct = $('client-table');
-  if (!ct) return;
-  if (!clients.length) { ct.innerHTML = '<div style="padding:20px;text-align:center;color:var(--faint)">No clients yet</div>'; return; }
-  ct.innerHTML = clients.map(c => {
-    const av = (c.name || '').split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
-    const ratingCol = (c.reputation_score||0) >= 4 ? 'var(--green)' : c.reputation_score >= 3.5 ? 'var(--amber)' : 'var(--red)';
-    const statusDot = c.status === 'active' ? '#2ea87a' : '#d97706';
-    return `<div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:0;padding:10px 16px;border-bottom:1px solid var(--border);align-items:center;cursor:pointer;transition:background .1s" onmouseover="this.style.background='#f8f8f5'" onmouseout="this.style.background=''">
-      <div style="display:flex;align-items:center;gap:9px"><div style="width:28px;height:28px;border-radius:7px;background:var(--green-light);color:var(--green-dark);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500">${av}</div><div><div style="font-size:12px;font-weight:500">${c.name}</div><div style="font-size:10px;color:var(--faint)">${c.business_type||''} · ${c.city||''}</div></div></div>
-      <div style="font-size:13px;font-weight:500;color:${ratingCol}">${c.reputation_score ? c.reputation_score+'★' : '—'}</div>
-      <div><span style="font-size:11px;padding:2px 8px;border-radius:99px;background:var(--green-light);color:var(--green-dark);text-transform:capitalize">${c.plan || 'Beta'}</span></div>
-      <div style="font-size:12px">${c.pending_reviews || 0}</div>
-      <div style="display:flex;align-items:center;gap:5px"><div style="width:7px;height:7px;border-radius:50%;background:${statusDot}"></div><span style="font-size:11px;color:var(--muted)">${c.status === 'active' ? 'Active' : 'Inactive'}</span></div>
-    </div>`;
-  }).join('');
+// ── QUEUE SCREEN ──────────────────────────────────────────────────────────────
+function renderQueueScreen() {
+  const el = $('queue-card');
+  const sub = $('queue-subtitle');
+  if (!el) return;
+  if (sub) sub.textContent = _pending.length + ' reviews awaiting your approval before posting';
+  if (!_pending.length) { el.innerHTML = '<div class="loading-row">No pending reviews 🎉</div>'; return; }
+  el.innerHTML = _pending.map(rv => reviewCard(rv)).join('');
 }
 
-function renderClientRatings(clients) {
-  const cr = $('client-ratings');
-  if (!cr) return;
-  cr.innerHTML = clients.slice(0,5).map(c => {
-    const av = (c.name||'').split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
-    const score = c.reputation_score || c.avg_rating || '—';
-    const ratingCol = score >= 4 ? 'var(--green)' : score >= 3.5 ? 'var(--amber)' : 'var(--red)';
-    return `<div class="client-row">
-      <div class="client-av" style="background:var(--green-light);color:var(--green-dark)">${av}</div>
-      <div class="client-info"><div class="name">${c.name}</div><div class="type">${c.business_type||''} · ${c.city||''}</div></div>
-      <div class="client-stat"><div class="client-rating" style="color:${ratingCol}">${score} ★</div></div>
-      <div class="status-dot" style="background:${c.status==='active'?'var(--green-mid)':'var(--amber)'}"></div>
-    </div>`;
-  }).join('');
-}
-
-function renderReviewQueue(reviews) {
-  const qc = $('queue-card');
-  if (!qc) return;
-  if (!reviews.length) { qc.innerHTML = '<div style="padding:24px;text-align:center;color:var(--faint);font-size:12px">No pending reviews 🎉</div>'; return; }
-  qc.innerHTML = reviews.slice(0,5).map(rv => {
-    const clientName = rv.clients?.name || 'Unknown';
-    const av = clientName.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
-    const stars = '★'.repeat(rv.rating) + '<span style="color:#ddd">' + '★'.repeat(5-rv.rating) + '</span>';
-    const starCol = rv.rating <= 2 ? 'var(--red)' : rv.rating <= 3 ? 'var(--amber)' : 'var(--green)';
-    const urgentBadge = rv.is_urgent
-      ? '<span class="urgent-pill pill-red">Crisis</span>'
-      : rv.rating <= 2 ? '<span class="urgent-pill pill-red">Urgent</span>' : '<span class="urgent-pill pill-green">Normal</span>';
-    const platformTag = rv.platform === 'Google'
-      ? '<span class="platform-tag" style="background:#eff6ff;color:#1d4ed8">Google</span>'
-      : `<span class="platform-tag" style="background:#f5f3ff;color:#5b21b6">${rv.platform||'Unknown'}</span>`;
-    const aiSection = rv.ai_response
-      ? `<div class="ai-response"><div class="ai-label">✓ Claude AI response (ready to post)</div><div class="ai-body">${rv.ai_response}</div></div>`
-      : `<div class="ai-response" style="background:#fafafa"><div class="ai-label" style="color:var(--faint)">⏳ Generating AI response...</div></div>`;
-    return `<div class="review">
-      <div class="review-meta">
-        <div class="biz-chip"><div class="biz-av" style="background:var(--green-light);color:var(--green-dark)">${av}</div><div><div class="biz-name">${clientName}</div></div></div>
-        ${platformTag}
-        <div class="star-row" style="color:${starCol}">${stars}</div>
-        <span class="review-time">${timeAgo(rv.created_at)}</span>
-        ${urgentBadge}
-      </div>
-      <div class="review-body">"${rv.review_text}"</div>
-      ${aiSection}
-      <div class="review-btns">
-        <button class="btn-sm btn-approve" onclick="approveReview('${rv.id}', this)">Approve & post</button>
-        <button class="btn-sm btn-edit" onclick="alert('Edit mode — modify the AI response')">Edit</button>
-        <button class="btn-sm btn-skip">Skip</button>
-      </div>
-    </div>`;
-  }).join('');
+function reviewCard(rv) {
+  const client = rv.clients?.name || rv.client_name || '—';
+  const av = initials(client);
+  const stars = '★'.repeat(rv.rating||0) + '<span style="color:#ddd">' + '★'.repeat(5-(rv.rating||0)) + '</span>';
+  const sc = (rv.rating||0) <= 2 ? '#dc2626' : (rv.rating||0) <= 3 ? '#d97706' : '#1a7f5a';
+  const urgBadge = rv.is_urgent
+    ? '<span class="urgent-pill pill-red">Crisis</span>'
+    : (rv.rating||5) <= 2 ? '<span class="urgent-pill pill-red">Urgent</span>' : '<span class="urgent-pill pill-green">Normal</span>';
+  const platTag = (rv.platform==='Google')
+    ? '<span class="platform-tag" style="background:#eff6ff;color:#1d4ed8">Google</span>'
+    : '<span class="platform-tag" style="background:#f5f3ff;color:#5b21b6">' + (rv.platform||'—') + '</span>';
+  const aiSection = rv.ai_response
+    ? '<div class="ai-response"><div class="ai-label">✓ Claude AI response (ready to post)</div><div class="ai-body">' + rv.ai_response + '</div></div>'
+    : '<div class="ai-response" style="background:#f9fafb;border:1px solid #e5e7eb"><div class="ai-label" style="color:#9ca3af">⏳ Generating AI response…</div></div>';
+  return '<div class="review">' +
+    '<div class="review-meta">' +
+      '<div class="biz-chip"><div class="biz-av" style="background:#e8f5ef;color:#085041">' + av + '</div><div><div class="biz-name">' + client + '</div></div></div>' +
+      platTag +
+      '<div class="star-row" style="color:' + sc + '">' + stars + '</div>' +
+      '<span class="review-time">' + timeAgo(rv.created_at) + '</span>' +
+      urgBadge +
+    '</div>' +
+    '<div class="review-body">"' + (rv.review_text||'').substring(0,200) + '"</div>' +
+    aiSection +
+    '<div class="review-btns">' +
+      '<button class="btn-sm btn-approve" data-rid="' + rv.id + '" onclick="approveReview(this.dataset.rid,this)">Approve &amp; post</button>' +
+      '<button class="btn-sm btn-edit" onclick="alert(&quot;Edit response before posting&quot;)">Edit</button>' +
+      '<button class="btn-sm btn-skip">Skip</button>' +
+    '</div>' +
+  '</div>';
 }
 
 async function approveReview(id, btn) {
-  btn.textContent = 'Posting...';
-  btn.disabled = true;
+  btn.textContent = 'Posting…'; btn.disabled = true;
   try {
-    await fetch(`${API}/api/review`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id, response_status: 'approved' })
-    });
+    await fetch(API + '/api/review', { method:'PATCH', headers:{'Content-Type':'application/json'}, body: JSON.stringify({id, response_status:'approved'}) });
     btn.closest('.review').style.opacity = '0.4';
     btn.textContent = '✓ Posted';
-  } catch(e) {
-    btn.textContent = 'Error — retry';
-    btn.disabled = false;
-  }
+  } catch(e) { btn.textContent = 'Error'; btn.disabled = false; }
 }
 
-function renderAlerts(alerts) {
-  const ac = $('alerts-card');
-  if (!ac) return;
-  if (!alerts.length) { ac.innerHTML = '<div style="padding:16px;text-align:center;color:var(--faint);font-size:12px">No recent alerts</div>'; return; }
-  ac.innerHTML = alerts.slice(0,3).map(a => {
-    const isRed = a.type === 'crisis' || a.severity === 'high';
-    return `<div class="alert-row">
-      <div class="alert-icon" style="background:${isRed ? '#fee2e2' : 'var(--green-light)'}">
-        ${isRed ? '<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 3v4M7 9.5v.5" stroke="#dc2626" stroke-width="1.5" stroke-linecap="round"/><circle cx="7" cy="7" r="5.5" stroke="#dc2626" stroke-width="1"/></svg>'
-                : '<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-6" stroke="var(--green)" stroke-width="1.5" stroke-linecap="round"/></svg>'}
-      </div>
-      <div class="alert-content">
-        <div class="alert-title">${a.clients?.name || ''} — ${a.title || a.message || 'Alert'}</div>
-        <div class="alert-desc">${a.description || a.message || ''}</div>
-      </div>
-      <div class="alert-time">${timeAgo(a.created_at)}</div>
-    </div>`;
+async function approveAll() {
+  if (!confirm('Approve all ' + _pending.length + ' pending reviews?')) return;
+  for (const rv of _pending) {
+    await fetch(API + '/api/review', { method:'PATCH', headers:{'Content-Type':'application/json'}, body: JSON.stringify({id:rv.id, response_status:'approved'}) });
+  }
+  alert('Done! All reviews approved.');
+  loadAllData();
+}
+
+// ── CLIENT RATINGS (dashboard mini) ──────────────────────────────────────────
+function renderClientRatings() {
+  const el = $('client-ratings-dash');
+  if (!el) return;
+  const list = [..._clients].sort((a,b) => (b.reputation_score||0)-(a.reputation_score||0)).slice(0,5);
+  if (!list.length) { el.innerHTML = '<div class="loading-row">No clients yet</div>'; return; }
+  el.innerHTML = list.map(c => {
+    const score = c.reputation_score || '—';
+    const col = score >= 4 ? 'var(--green)' : score >= 3.5 ? 'var(--amber)' : 'var(--red)';
+    const dot = c.status === 'active' ? 'var(--green-mid)' : 'var(--amber)';
+    return '<div class="client-row">' +
+      '<div class="client-av" style="background:#e8f5ef;color:#085041">' + initials(c.name) + '</div>' +
+      '<div class="client-info"><div class="name">' + c.name + '</div><div class="type">' + (c.business_type||'') + ' · ' + (c.city||'') + '</div></div>' +
+      '<div class="client-stat"><div class="client-rating" style="color:' + col + '">' + score + ' ★</div><div class="client-trend" style="color:' + col + '">active</div></div>' +
+      '<div class="status-dot" style="background:' + dot + '"></div>' +
+    '</div>';
   }).join('');
 }
 
-const clients = [
-  { av:'SD', avBg:'#e8f5ef', avCol:'#085041', name:'Sharma Dental', type:'Clinic · Delhi', rating:'4.4', ratingCol:'#1a7f5a', trend:'+0.6', plan:'Growth', reviews:31, status:'active' },
-  { av:'GH', avBg:'#fef9ee', avCol:'#92400e', name:'The Grill House', type:'Restaurant · Mumbai', rating:'4.2', ratingCol:'#1a7f5a', trend:'+0.3', plan:'Growth', reviews:28, status:'active' },
-  { av:'HI', avBg:'#eff6ff', avCol:'#1e40af', name:'Harbor Inn', type:'Hotel · Goa', rating:'3.9', ratingCol:'#d97706', trend:'+0.1', plan:'Pro', reviews:44, status:'watch' },
-  { av:'AC', avBg:'#f5f3ff', avCol:'#5b21b6', name:'Apex Coaching', type:'Education · Pune', rating:'4.7', ratingCol:'#1a7f5a', trend:'+0.4', plan:'Starter', reviews:19, status:'active' },
-  { av:'BG', avBg:'#fee2e2', avCol:'#991b1b', name:'Bliss Gym', type:'Fitness · Bangalore', rating:'4.1', ratingCol:'#1a7f5a', trend:'+0.2', plan:'Starter', reviews:22, status:'active' },
-  { av:'SS', avBg:'#ecfdf5', avCol:'#065f46', name:'Spice Story', type:'Restaurant · Hyderabad', rating:'4.5', ratingCol:'#1a7f5a', trend:'+0.5', plan:'Growth', reviews:37, status:'active' },
-  { av:'FH', avBg:'#fdf4ff', avCol:'#7e22ce', name:'FitHub Yoga', type:'Wellness · Chennai', rating:'4.6', ratingCol:'#1a7f5a', trend:'+0.3', plan:'Starter', reviews:15, status:'active' },
-];
+// ── ALL CLIENTS TABLE ─────────────────────────────────────────────────────────
+function renderClientTable() {
+  const el = $('client-table');
+  if (!el) return;
+  if (!_clients.length) { el.innerHTML = '<div class="loading-row">No clients yet</div>'; return; }
+  el.innerHTML = _clients.map(c => {
+    const score = c.reputation_score || '—';
+    const col = score >= 4 ? 'var(--green)' : score >= 3.5 ? 'var(--amber)' : 'var(--red)';
+    const dot = c.status === 'active' ? '#2ea87a' : '#d97706';
+    return '<div class="hrow" style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;padding:10px 16px;border-bottom:1px solid var(--border);align-items:center">'+
+      '<div style="display:flex;align-items:center;gap:9px"><div style="width:28px;height:28px;border-radius:7px;background:#e8f5ef;color:#085041;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500">' + initials(c.name) + '</div><div><div style="font-size:12px;font-weight:500">' + c.name + '</div><div style="font-size:10px;color:var(--faint)">' + (c.business_type||'') + ' · ' + (c.city||'') + '</div></div></div>'+
+      '<div style="font-size:13px;font-weight:500;color:' + col + '">' + score + ' ★</div>'+
+      '<div><span style="font-size:11px;padding:2px 8px;border-radius:99px;background:#e8f5ef;color:#085041;text-transform:capitalize">' + (c.plan||'Beta') + '</span></div>'+
+      '<div style="font-size:12px">' + (c.pending_reviews||0) + '</div>'+
+      '<div style="display:flex;align-items:center;gap:5px"><div style="width:7px;height:7px;border-radius:50%;background:' + dot + '"></div><span style="font-size:11px;color:var(--muted)">' + (c.status==='active'?'Active':'Inactive') + '</span></div>'+
+    '</div>';
+  }).join('');
+}
 
-const ct = document.getElementById('client-table');
-clients.forEach(c => {
-  const statusDot = c.status === 'active' ? '#2ea87a' : '#d97706';
-  ct.innerHTML += `<div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:0;padding:10px 16px;border-bottom:1px solid var(--border);align-items:center;cursor:pointer;transition:background .1s" onmouseover="this.style.background='#f8f8f5'" onmouseout="this.style.background=''"
-  >
-    <div style="display:flex;align-items:center;gap:9px;"><div style="width:28px;height:28px;border-radius:7px;background:${c.avBg};color:${c.avCol};display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;">${c.av}</div><div><div style="font-size:12px;font-weight:500;">${c.name}</div><div style="font-size:10px;color:var(--faint)">${c.type}</div></div></div>
-    <div style="font-size:13px;font-weight:500;color:${c.ratingCol}">${c.rating} ★ <span style="font-size:10px;font-weight:400">${c.trend}</span></div>
-    <div><span style="font-size:11px;padding:2px 8px;border-radius:99px;background:var(--green-light);color:var(--green-dark)">${c.plan}</span></div>
-    <div style="font-size:12px;">${c.reviews}</div>
-    <div style="display:flex;align-items:center;gap:5px;"><div style="width:7px;height:7px;border-radius:50%;background:${statusDot}"></div><span style="font-size:11px;color:var(--muted)">${c.status === 'active' ? 'Active' : 'Needs attention'}</span></div>
-  </div>`;
-});
+// ── ALERTS (dashboard mini) ───────────────────────────────────────────────────
+function renderAlerts() {
+  const el = $('alerts-dash');
+  if (!el) return;
+  if (!_alerts.length) { el.innerHTML = '<div class="loading-row">No recent alerts</div>'; return; }
+  el.innerHTML = _alerts.slice(0,3).map(a => {
+    const red = a.type==='crisis' || a.severity==='high' || a.is_urgent;
+    return '<div class="alert-row">' +
+      '<div class="alert-icon" style="background:' + (red?'#fee2e2':'var(--green-light)') + '">' +
+        (red ? '<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 3v4M7 9.5v.5" stroke="#dc2626" stroke-width="1.5" stroke-linecap="round"/><circle cx="7" cy="7" r="5.5" stroke="#dc2626" stroke-width="1"/></svg>'
+             : '<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-6" stroke="var(--green)" stroke-width="1.5" stroke-linecap="round"/></svg>') +
+      '</div>' +
+      '<div class="alert-content"><div class="alert-title">' + (a.clients?.name ? a.clients.name + ' — ' : '') + (a.title||a.message||'Alert') + '</div><div class="alert-desc">' + (a.description||'') + '</div></div>' +
+      '<div class="alert-time">' + timeAgo(a.created_at) + '</div>' +
+    '</div>';
+  }).join('');
+}
 
-const billingData = [
-  { name:'Sharma Dental', plan:'Growth', amount:'₹5,999', status:'paid', date:'Mar 3' },
-  { name:'The Grill House', plan:'Growth', amount:'₹5,999', status:'paid', date:'Mar 1' },
-  { name:'Harbor Inn', plan:'Pro', amount:'₹9,999', status:'overdue', date:'Feb 28' },
-  { name:'Apex Coaching', plan:'Starter', amount:'₹2,999', status:'paid', date:'Mar 5' },
-  { name:'Bliss Gym', plan:'Starter', amount:'₹2,999', status:'paid', date:'Mar 2' },
-  { name:'Spice Story', plan:'Growth', amount:'₹5,999', status:'pending', date:'Mar 10' },
-  { name:'FitHub Yoga', plan:'Starter', amount:'₹2,999', status:'overdue', date:'Feb 25' },
-];
-const bt = document.getElementById('billing-table');
-billingData.forEach(b => {
-  const sc = b.status === 'paid' ? '#e8f5ef' : b.status === 'pending' ? '#fef9ee' : '#fee2e2';
-  const tc = b.status === 'paid' ? '#085041' : b.status === 'pending' ? '#92400e' : '#991b1b';
-  bt.innerHTML += `<div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;padding:10px 16px;border-bottom:1px solid var(--border);align-items:center;font-size:12px;">
-    <div style="font-weight:500;">${b.name}</div>
-    <div style="color:var(--muted)">${b.plan}</div>
-    <div style="font-weight:500;">${b.amount}</div>
-    <div style="display:flex;align-items:center;gap:6px;"><span style="padding:2px 8px;border-radius:99px;font-size:11px;background:${sc};color:${tc};font-weight:500;">${b.status}</span><span style="color:var(--faint)">${b.date}</span></div>
-  </div>`;
-});
+// ── BILLING ───────────────────────────────────────────────────────────────────
+function renderBilling() {
+  const el = $('billing-table');
+  if (!el) return;
+  if (!_clients.length) { el.innerHTML = '<div class="loading-row">Loading...</div>'; return; }
+  el.innerHTML = _clients.map(c => {
+    return '<div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;padding:10px 16px;border-bottom:1px solid var(--border);align-items:center;font-size:12px">' +
+      '<div style="font-weight:500">' + c.name + '</div>' +
+      '<div style="color:var(--muted);text-transform:capitalize">' + (c.plan||'beta') + '</div>' +
+      '<div style="font-weight:500">' + fmtRupee(c.monthly_fee) + '</div>' +
+      '<div><span style="padding:2px 8px;border-radius:99px;font-size:11px;background:#e8f5ef;color:#085041;font-weight:500">' + (c.status||'active') + '</span></div>' +
+    '</div>';
+  }).join('');
+}
 
+// ── SCREEN SWITCHER ───────────────────────────────────────────────────────────
 function switchScreen(id, el) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.getElementById('screen-' + id).classList.add('active');
+  const screen = $('screen-' + id);
+  if (screen) screen.classList.add('active');
   if (el) el.classList.add('active');
-  const titles = { dashboard:'Dashboard — Good morning', queue:'Review queue', clients:'All clients', alerts:'Crisis alerts', billing:'Billing', reports:'Reports & analytics' };
-  document.getElementById('topbar-title').textContent = titles[id] || 'ColorcraftAI Admin';
+  const titles = { dashboard:'Dashboard', queue:'Review queue', clients:'All clients', alerts:'Crisis alerts', billing:'Billing', reports:'Reports & analytics' };
+  const h = new Date().getHours();
+  const greet = h<12?'Good morning':h<18?'Good afternoon':'Good evening';
+  $('topbar-title').textContent = id==='dashboard' ? 'Dashboard — ' + greet : (titles[id] || 'ColorcraftAI Admin');
 }
 </script>
+
 </body>
 </html>
