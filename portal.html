@@ -311,7 +311,6 @@ body{display:flex}
 
     <div class="nav-sec">Reviews</div>
     <div class="ni" onclick="go('reviews',this,'All Reviews')"><div class="ni-ic">☆</div>All reviews</div>
-    <div class="ni" onclick="go('campaigns',this,'Review Campaigns')"><div class="ni-ic">◉</div>Review campaigns<span class="ni-badge nb-g">Active</span></div>
     <div class="ni" onclick="go('library',this,'Response Library')"><div class="ni-ic">▤</div>Response library</div>
 
     <div class="nav-sec">Presence</div>
@@ -320,7 +319,6 @@ body{display:flex}
 
     <div class="nav-sec">Intelligence</div>
     <div class="ni" onclick="go('competitors',this,'Competitor Alerts')"><div class="ni-ic">⚡</div>Competitor alerts<span class="ni-badge nb-r">2</span></div>
-    <div class="ni" onclick="go('journey',this,'Patient Journey')"><div class="ni-ic">→</div>Patient journey</div>
     <div class="ni" onclick="go('whatsapp',this,'WhatsApp Inbox')"><div class="ni-ic">◌</div>WhatsApp inbox<span class="ni-badge nb-g">5</span></div>
     <!-- Locations hidden until client has multiple locations -->
 
@@ -349,7 +347,6 @@ body{display:flex}
         <span style="color:var(--g)">★</span> 4.4 · #1 in area
       </div>
       <button class="btn" onclick="alert('Downloading PDF...')">Download report</button>
-      <button class="btn-primary btn">+ Share widget</button>
     </div>
   </div>
 
@@ -502,8 +499,8 @@ body{display:flex}
 
       <!-- ══ QUICK STATS ROW ══ -->
       <div class="g5" style="margin-bottom:16px">
+        <div class="kpi"><div class="kpi-l">Phone clicks/mo</div><div class="kpi-v">189</div><div class="kpi-c" style="color:var(--g)">▲ +18%</div></div>
         <div class="kpi"><div class="kpi-l">Reviews this month</div><div class="kpi-v" style="color:var(--g)">8</div><div class="kpi-c" style="color:var(--g)">▲ +3 vs last month</div></div>
-        <div class="kpi"><div class="kpi-l">Avg response time</div><div class="kpi-v">47m</div><div class="kpi-c" style="color:var(--g)">▲ 2x faster</div></div>
         <div class="kpi"><div class="kpi-l">NPS</div><div class="kpi-v" style="color:var(--b)">75</div><div class="kpi-c" style="color:var(--b)">▲ +12</div></div>
         <div class="kpi"><div class="kpi-l">Avg response time</div><div class="kpi-v">47m</div><div class="kpi-c" style="color:var(--g)">▲ 2x faster than before</div></div>
         <div class="kpi"><div class="kpi-l">Listing views/mo</div><div class="kpi-v">4,820</div><div class="kpi-c" style="color:var(--g)">▲ +22%</div></div>
@@ -710,7 +707,6 @@ body{display:flex}
       <div style="display:flex;gap:6px;flex-wrap:wrap">
         <span class="tag" style="padding:5px 13px;cursor:pointer;background:var(--tx);color:#fff;border-radius:99px">All (31)</span>
         <span class="tag tag-b" style="padding:5px 13px;cursor:pointer;border-radius:99px">Google (22)</span>
-        <span class="tag tag-g" style="padding:5px 13px;cursor:pointer;border-radius:99px">Justdial (9)</span>
         <span class="tag tag-g" style="padding:5px 13px;cursor:pointer;border-radius:99px">5★</span>
         <span class="tag tag-r" style="padding:5px 13px;cursor:pointer;border-radius:99px">Low ratings (2)</span>
       </div>
@@ -718,24 +714,7 @@ body{display:flex}
     </div>
 
     <!-- ── REVIEW CAMPAIGNS ── -->
-    <div id="sc-campaigns" class="sc">
-      <div class="g3">
-        <div class="kpi"><div class="kpi-l">Sent this month</div><div class="kpi-v">47</div><div class="kpi-c" style="color:var(--mu)">Total requests</div></div>
-        <div class="kpi"><div class="kpi-l">Open rate</div><div class="kpi-v" style="color:var(--b)">81%</div><div class="kpi-c" style="color:var(--b)">38 opened</div></div>
-        <div class="kpi"><div class="kpi-l">Review conversion</div><div class="kpi-v" style="color:var(--g)">40%</div><div class="kpi-c" style="color:var(--g)">19 reviews generated</div></div>
-      </div>
-      <div class="card">
-        <div class="ch"><div class="ct">Campaign history</div><button class="btn-primary btn" style="font-size:11px" onclick="alert('New campaign — upload patient list or sync from appointment system')">+ New campaign</button></div>
-        <div style="display:grid;grid-template-columns:2fr .7fr .7fr .7fr .7fr;padding:8px 14px;border-bottom:1px solid var(--bd);background:var(--bg)">
-          <span style="font-size:10px;color:var(--fa);text-transform:uppercase;letter-spacing:.07em">Campaign</span>
-          <span style="font-size:10px;color:var(--fa);text-transform:uppercase;letter-spacing:.07em">Sent</span>
-          <span style="font-size:10px;color:var(--fa);text-transform:uppercase;letter-spacing:.07em">Opened</span>
-          <span style="font-size:10px;color:var(--fa);text-transform:uppercase;letter-spacing:.07em">Reviews</span>
-          <span style="font-size:10px;color:var(--fa);text-transform:uppercase;letter-spacing:.07em">Status</span>
-        </div>
-        <div id="camp-rows"></div>
-      </div>
-    </div>
+    
 
 
     <!-- ── RESPONSE LIBRARY ── -->
@@ -832,38 +811,7 @@ body{display:flex}
     </div>
 
     <!-- ── PATIENT JOURNEY ── -->
-    <div id="sc-journey" class="sc">
-      <div class="g2">
-        <div class="card">
-          <div class="ch"><div class="ct">Patient journey — reputation to revenue</div></div>
-          <div class="funnel-step"><div class="funnel-num">1</div><div class="funnel-body"><div class="funnel-title">Google search</div><div class="funnel-sub">Searched "dentist in South Delhi"</div></div><div class="funnel-bar-col"><div class="bar-bg"><div class="bar-fill" style="width:100%;background:var(--b)"></div></div></div><div class="funnel-pct">1,200/mo</div></div>
-          <div class="funnel-step"><div class="funnel-num">2</div><div class="funnel-body"><div class="funnel-title">Saw your listing</div><div class="funnel-sub">Appeared in local 3-pack</div></div><div class="funnel-bar-col"><div class="bar-bg"><div class="bar-fill" style="width:80%;background:var(--b)"></div></div></div><div class="funnel-pct">960</div></div>
-          <div class="funnel-step"><div class="funnel-num">3</div><div class="funnel-body"><div class="funnel-title">Read your reviews</div><div class="funnel-sub">Checked rating & responses</div></div><div class="funnel-bar-col"><div class="bar-bg"><div class="bar-fill" style="width:55%;background:var(--gm)"></div></div></div><div class="funnel-pct">660</div></div>
-          <div class="funnel-step"><div class="funnel-num">4</div><div class="funnel-body"><div class="funnel-title">Clicked "Call" or "Website"</div><div class="funnel-sub">Took action on listing</div></div><div class="funnel-bar-col"><div class="bar-bg"><div class="bar-fill" style="width:35%;background:var(--g)"></div></div></div><div class="funnel-pct">420</div></div>
-          <div class="funnel-step"><div class="funnel-num">5</div><div class="funnel-body"><div class="funnel-title">Booked appointment</div><div class="funnel-sub">Converted to patient</div></div><div class="funnel-bar-col"><div class="bar-bg"><div class="bar-fill" style="width:18%;background:var(--gd)"></div></div></div><div class="funnel-pct" style="color:var(--g);font-weight:500">~210</div></div>
-          <div style="padding:10px 14px;background:var(--gl);border-top:1px solid var(--bd)"><div style="font-size:11px;color:var(--gd)"><strong>~210 new patient enquiries/month</strong> attributed to your Google presence. At avg ₹2,000/visit → <strong>~₹4.2L monthly reach.</strong></div></div>
-        </div>
-        <div class="col">
-          <div class="card">
-            <div class="ch"><div class="ct">How your rating impacts this funnel</div></div>
-            <div style="padding:12px 14px;display:flex;flex-direction:column;gap:10px">
-              <div style="padding:10px;background:var(--gl);border-radius:8px"><div style="font-size:11px;font-weight:500;color:var(--gd);margin-bottom:3px">At 4.4★ (current)</div><div style="font-size:11px;color:var(--mu)">~210 enquiries/month. Patients choose you over 3.6★ competitors without hesitation.</div></div>
-              <div style="padding:10px;background:var(--al);border-radius:8px"><div style="font-size:11px;font-weight:500;color:#92400e;margin-bottom:3px">If rating dropped to 3.8★</div><div style="font-size:11px;color:var(--mu)">Estimated ~120 enquiries/month. 43% drop. Would lose top 3-pack position to competitors.</div></div>
-              <div style="padding:10px;background:var(--bl);border-radius:8px"><div style="font-size:11px;font-weight:500;color:#1d4ed8;margin-bottom:3px">At 4.6★ (your next target)</div><div style="font-size:11px;color:var(--mu)">Estimated ~290 enquiries/month. 38% more than today. ColorcraftAI is targeting this by April.</div></div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="ch"><div class="ct">Listing performance this month</div></div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bd)">
-              <div style="padding:10px 12px;background:var(--wh)"><div style="font-size:10px;color:var(--fa)">Listing views</div><div style="font-family:var(--serif);font-size:20px;margin-top:2px">4,820</div></div>
-              <div style="padding:10px 12px;background:var(--wh)"><div style="font-size:10px;color:var(--fa)">Direction requests</div><div style="font-family:var(--serif);font-size:20px;margin-top:2px;color:var(--b)">312</div></div>
-              <div style="padding:10px 12px;background:var(--wh)"><div style="font-size:10px;color:var(--fa)">Phone clicks</div><div style="font-family:var(--serif);font-size:20px;margin-top:2px;color:var(--g)">189</div></div>
-              <div style="padding:10px 12px;background:var(--wh)"><div style="font-size:10px;color:var(--fa)">Website clicks</div><div style="font-family:var(--serif);font-size:20px;margin-top:2px;color:var(--p)">87</div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    
 
     <!-- ── WHATSAPP INBOX ── -->
     <div id="sc-whatsapp" class="sc">
@@ -1041,7 +989,7 @@ function go(id,el,title){
 const rvs=[
   {p:'Google',s:5,d:'Today',b:'"Excellent treatment and professional staff. Dr Sharma explains everything clearly. Highly recommend!"',r:'"Thank you so much for your kind words! We are delighted you had a wonderful experience."'},
   {p:'Google',s:2,d:'2 days',b:'"Waited 45 mins past appointment. No explanation or apology from staff."',r:'"We sincerely apologise for the wait. This is not our standard — the team has been informed."'},
-  {p:'Justdial',s:4,d:'3 days',b:'"Good clinic, clean and hygienic. Reasonable prices. Would recommend."',r:'"Thank you! We look forward to seeing you on your next visit."'},
+
   {p:'Google',s:5,d:'1 week',b:'"Best dental clinic in the area! Very gentle and completely painless treatment."',r:'"Your kind words mean the world to our team — thank you!"'},
   {p:'Google',s:5,d:'10 days',b:'"Dr Sharma explains every procedure clearly. Clinic is spotless and modern."',r:'"We appreciate your kind review! Transparency and cleanliness are our top priorities."'},
 ];
@@ -1299,7 +1247,7 @@ const sg=document.getElementById('social-grid');
 if(sg){
   const quotes=[
     {q:'"Completely painless treatment. Best dentist in Delhi!"',src:'Google · Priya M · 5★'},
-    {q:'"Staff are so friendly and professional. Clinic is spotless."',src:'Justdial · Rahul K · 5★'},
+    {q:'"Dr Sharma is the best dentist in Delhi. Highly recommended!"',src:'Google · Amit S · 5★'},
     {q:'"Dr Sharma explains everything clearly. I trust this clinic."',src:'Google · Sneha T · 5★'},
   ];
   const bgs=['linear-gradient(135deg,#0a5c3a,#16a163)','linear-gradient(135deg,#1d4ed8,#3b82f6)','linear-gradient(135deg,#5b21b6,#7c3aed)'];
