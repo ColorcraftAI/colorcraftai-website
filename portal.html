@@ -240,6 +240,7 @@ body{display:flex}
 .ob-sub{font-size:14px;color:var(--fa);margin-bottom:24px;line-height:1.6}
 .ob-inp{width:100%;padding:12px 14px;border-radius:10px;border:1.5px solid var(--bd);font-size:14px;font-family:'DM Sans',sans-serif;color:var(--tx);outline:none;transition:border .2s;margin-bottom:10px}
 .ob-inp:focus{border-color:var(--g)}
+.ob-inp:disabled{background:#f5f5f3;color:var(--fa);cursor:not-allowed;}
 .ob-results{border:1.5px solid var(--bd);border-radius:10px;max-height:220px;overflow-y:auto;margin-bottom:14px;display:none}
 .ob-result{padding:12px 14px;cursor:pointer;border-bottom:1px solid var(--bd);transition:background .15s}
 .ob-result:last-child{border-bottom:none}
@@ -290,7 +291,7 @@ body{display:flex}
     <div class="ob-step">Step 1 of 1 — Setup</div>
     <h2 class="ob-title">Find your business on Google</h2>
     <p class="ob-sub">Search for your business name so we can start monitoring your reviews automatically.</p>
-    <input class="ob-inp" id="ob-search" type="text" placeholder="e.g. Sharma Dental Clinic, New Delhi" autocomplete="off">
+    <input class="ob-inp" id="ob-search" type="text" placeholder="Loading Google Maps…" autocomplete="off" disabled>
     <div class="ob-results" id="ob-results"></div>
     <div class="ob-selected" id="ob-selected">
       <div class="ob-selected-name" id="ob-sel-name"></div>
@@ -1014,7 +1015,9 @@ function initPlacesAutocomplete() {
       document.head.appendChild(s);
     })
     .catch(() => {
-      document.getElementById('ob-search').placeholder = 'Could not load search — try refreshing';
+      const inp = document.getElementById('ob-search');
+      inp.disabled = false;
+      inp.placeholder = 'Search failed — please refresh and try again';
     });
 }
 
@@ -1023,6 +1026,11 @@ window.onMapsLoaded = function() { setupAutocomplete(); };
 function setupAutocomplete() {
   const input = document.getElementById('ob-search');
   if (!input || !window.google) return;
+
+  // Enable the input now that Maps is ready
+  input.disabled = false;
+  input.placeholder = 'e.g. Sharma Dental Clinic, New Delhi';
+  input.focus();
 
   autocomplete = new google.maps.places.Autocomplete(input, {
     types: ['establishment'],
