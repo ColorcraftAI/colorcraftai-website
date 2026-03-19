@@ -225,8 +225,8 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
         </div>
         <div class="kpi">
           <div class="kpi-label">Monthly revenue</div>
-          <div class="kpi-value" id="kpi-revenue" style="color:var(--green)">—</div>
-          <div class="kpi-change" style="color:var(--green)">Active plans</div>
+          <div class="kpi-value" id="kpi-revenue" style="color:var(--green)">Beta</div>
+          <div class="kpi-change" style="color:var(--green)">Free beta clients</div>
         </div>
       </div>
 
@@ -356,21 +356,21 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
               <div class="card-title">Revenue — last 6 months</div>
             </div>
             <div class="sparkline">
-              <div class="spark-bar" style="height:55%;background:#c0ddb0" title="Oct: ₹65k"></div>
-              <div class="spark-bar" style="height:62%;background:#9ecf8c" title="Nov: ₹74k"></div>
-              <div class="spark-bar" style="height:70%;background:#7cbf6a" title="Dec: ₹84k"></div>
-              <div class="spark-bar" style="height:78%;background:#5aae47" title="Jan: ₹94k"></div>
-              <div class="spark-bar" style="height:88%;background:#3a9e2a" title="Feb: ₹1.06L"></div>
-              <div class="spark-bar" style="height:100%;background:var(--green)" title="Mar: ₹1.38L"></div>
+              <div class="spark-bar" style="height:55%;background:#c0ddb0" title="Oct: Beta"></div>
+              <div class="spark-bar" style="height:62%;background:#9ecf8c" title="Nov: Beta"></div>
+              <div class="spark-bar" style="height:70%;background:#7cbf6a" title="Dec: Beta"></div>
+              <div class="spark-bar" style="height:78%;background:#5aae47" title="Jan: Beta"></div>
+              <div class="spark-bar" style="height:88%;background:#3a9e2a" title="Feb: Beta"></div>
+              <div class="spark-bar" style="height:100%;background:var(--green)" title="Mar: Beta"></div>
             </div>
             <div class="spark-labels">
               <span class="spark-label">Oct</span><span class="spark-label">Nov</span><span class="spark-label">Dec</span><span class="spark-label">Jan</span><span class="spark-label">Feb</span><span class="spark-label">Mar</span>
             </div>
             <div class="revenue-grid">
-              <div class="rev-cell"><div class="rev-label">This month</div><div class="rev-val" style="color:var(--green)">₹1,38,000</div></div>
-              <div class="rev-cell"><div class="rev-label">Last month</div><div class="rev-val">₹1,06,000</div></div>
-              <div class="rev-cell"><div class="rev-label">Avg per client</div><div class="rev-val">₹6,000</div></div>
-              <div class="rev-cell"><div class="rev-label">Overdue</div><div class="rev-val" style="color:var(--red)">₹8,999</div></div>
+              <div class="rev-cell"><div class="rev-label">This month</div><div class="rev-val" style="color:var(--green)">Free Beta</div></div>
+              <div class="rev-cell"><div class="rev-label">Last month</div><div class="rev-val">Free Beta</div></div>
+              <div class="rev-cell"><div class="rev-label">Avg per client</div><div class="rev-val">₹0</div></div>
+              <div class="rev-cell"><div class="rev-label">Overdue</div><div class="rev-val" style="color:var(--green)">₹0</div></div>
             </div>
           </div>
 
@@ -426,7 +426,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
     <!-- CLIENTS SCREEN -->
     <div id="screen-clients" class="screen">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
-        <div><div style="font-size:16px;font-weight:500;">All clients</div><div style="font-size:12px;color:var(--faint);margin-top:2px;">23 active clients · ₹1.38L monthly revenue</div></div>
+        <div><div style="font-size:16px;font-weight:500;">All clients</div><div style="font-size:12px;color:var(--faint);margin-top:2px;">23 active clients · Free beta period</div></div>
         <button class="btn btn-primary" onclick="alert('Add new client flow — collect business name, Google login, platform preferences')">+ Add client</button>
       </div>
       <div class="card">
@@ -483,10 +483,10 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
       <div style="font-size:16px;font-weight:500;margin-bottom:4px;">Billing</div>
       <div style="font-size:12px;color:var(--faint);margin-bottom:16px;">Track payments and subscriptions across all 23 clients</div>
       <div class="kpi-grid">
-        <div class="kpi"><div class="kpi-label">Monthly recurring</div><div class="kpi-value" style="color:var(--green)">₹1.38L</div><div class="kpi-change" style="color:var(--green)">▲ Growing</div></div>
-        <div class="kpi"><div class="kpi-label">Collected this month</div><div class="kpi-value">₹1.29L</div><div class="kpi-change" style="color:var(--muted)">93% collected</div></div>
-        <div class="kpi"><div class="kpi-label">Overdue</div><div class="kpi-value" style="color:var(--red)">₹8,999</div><div class="kpi-change" style="color:var(--red)">2 clients overdue</div></div>
-        <div class="kpi"><div class="kpi-label">Annual run rate</div><div class="kpi-value">₹16.5L</div><div class="kpi-change" style="color:var(--green)">▲ On track</div></div>
+        <div class="kpi"><div class="kpi-label">Monthly recurring</div><div class="kpi-value" style="color:var(--green)">₹0</div><div class="kpi-change" style="color:var(--green)">Free beta period</div></div>
+        <div class="kpi"><div class="kpi-label">Collected this month</div><div class="kpi-value">₹0</div><div class="kpi-change" style="color:var(--muted)">Beta — no billing yet</div></div>
+        <div class="kpi"><div class="kpi-label">Overdue</div><div class="kpi-value" style="color:var(--green)">₹0</div><div class="kpi-change" style="color:var(--green)">No dues during beta</div></div>
+        <div class="kpi"><div class="kpi-label">Annual run rate</div><div class="kpi-value">—</div><div class="kpi-change" style="color:var(--muted)">Post-beta pricing TBD</div></div>
       </div>
       <div class="card">
         <div class="card-head"><div class="card-title">Payment status this month</div><button class="btn" style="font-size:11px;padding:5px 10px;">Export CSV</button></div>
@@ -564,7 +564,7 @@ const timeAgo = iso => {
   if (d < 86400) return `${Math.round(d/3600)} hr ago`;
   return `${Math.round(d/86400)} day${Math.round(d/86400)>1?'s':''} ago`;
 };
-const planColors = { starter:'#e8f5ef;color:#085041', growth:'#eff6ff;color:#1d4ed8', pro:'#f5f3ff;color:#5b21b6', enterprise:'#111;color:#fff' };
+const planColors = { 'reputation scan':'#e8f5ef;color:#085041', 'review management':'#eff6ff;color:#1d4ed8', pro:'#f5f3ff;color:#5b21b6', enterprise:'#111;color:#fff' };
 const initials = name => name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
 const avatarColors = ['#e8f5ef;color:#085041','#fef9ee;color:#92400e','#eff6ff;color:#1e40af','#f5f3ff;color:#5b21b6','#fee2e2;color:#991b1b','#ecfdf5;color:#065f46','#fdf4ff;color:#7e22ce'];
 let _colorIdx = 0;

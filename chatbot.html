@@ -103,19 +103,19 @@ html,body{height:100%;font-family:var(--sans);background:var(--bg);color:var(--t
     <!-- ADMIN VIEW -->
     <div id="admin-view">
       <div class="portal-title">Good morning — Admin Dashboard</div>
-      <div class="portal-sub">7 clients active · 2 crisis alerts · ₹1,12,000 MRR</div>
+      <div class="portal-sub">7 clients active · 2 crisis alerts · Free beta</div>
       <div class="mock-cards">
         <div class="mc"><div class="mc-l">Total clients</div><div class="mc-v">7</div><div class="mc-c">▲ +2 this month</div></div>
-        <div class="mc"><div class="mc-l">MRR</div><div class="mc-v">₹1.12L</div><div class="mc-c">▲ +₹12,000</div></div>
+        <div class="mc"><div class="mc-l">MRR</div><div class="mc-v">Beta</div><div class="mc-c">Free period</div></div>
         <div class="mc"><div class="mc-l">Reviews responded</div><div class="mc-v">94%</div><div class="mc-c">This month</div></div>
       </div>
       <div class="mock-table">
         <div class="mt-hdr">All clients</div>
-        <div class="mt-row"><div class="mt-av">SD</div><div class="mt-nm">Sharma Dental</div><div class="mt-rt">4.4★</div><div class="mt-pl">Growth</div><div class="mt-st" style="background:var(--gl);color:var(--gd)">Paid</div></div>
-        <div class="mt-row"><div class="mt-av">SG</div><div class="mt-nm">Spice Garden</div><div class="mt-rt">4.1★</div><div class="mt-pl">Starter</div><div class="mt-st" style="background:#fff8ee;color:#e67700">Overdue</div></div>
-        <div class="mt-row"><div class="mt-av">HC</div><div class="mt-nm">Hotel Crown</div><div class="mt-rt">3.8★</div><div class="mt-pl">Growth</div><div class="mt-st" style="background:var(--rl);color:var(--r)">Overdue</div></div>
+        <div class="mt-row"><div class="mt-av">SD</div><div class="mt-nm">Sharma Dental</div><div class="mt-rt">4.4★</div><div class="mt-pl">Review Mgmt</div><div class="mt-st" style="background:var(--gl);color:var(--gd)">Paid</div></div>
+        <div class="mt-row"><div class="mt-av">SG</div><div class="mt-nm">Spice Garden</div><div class="mt-rt">4.1★</div><div class="mt-pl">Rep Scan</div><div class="mt-st" style="background:var(--gl);color:var(--gd)">Active</div></div>
+        <div class="mt-row"><div class="mt-av">HC</div><div class="mt-nm">Hotel Crown</div><div class="mt-rt">3.8★</div><div class="mt-pl">Review Mgmt</div><div class="mt-st" style="background:var(--rl);color:var(--r)">Overdue</div></div>
         <div class="mt-row"><div class="mt-av">PD</div><div class="mt-nm">Prime Derma</div><div class="mt-rt">4.6★</div><div class="mt-pl">Premium</div><div class="mt-st" style="background:var(--gl);color:var(--gd)">Paid</div></div>
-        <div class="mt-row"><div class="mt-av">TK</div><div class="mt-nm">Tandoor King</div><div class="mt-rt">4.0★</div><div class="mt-pl">Starter</div><div class="mt-st" style="background:var(--gl);color:var(--gd)">Paid</div></div>
+        <div class="mt-row"><div class="mt-av">TK</div><div class="mt-nm">Tandoor King</div><div class="mt-rt">4.0★</div><div class="mt-pl">Rep Scan</div><div class="mt-st" style="background:var(--gl);color:var(--gd)">Paid</div></div>
       </div>
     </div>
 
@@ -171,14 +171,14 @@ const adminContext = `You are ColorcraftAI Assistant running inside the admin po
 
 You have access to all client data:
 CLIENTS:
-- Sharma Dental: 4.4★, 31 reviews, Growth plan ₹5,999/mo, PAID, area rank #1, NPS 75
-- Spice Garden: 4.1★, 18 reviews, Starter plan ₹3,999/mo, OVERDUE 12 days, area rank #3
-- Hotel Crown: 3.8★, 24 reviews, Growth plan ₹5,999/mo, OVERDUE 8 days, area rank #5
-- Prime Derma: 4.6★, 41 reviews, Premium plan ₹9,999/mo, PAID, area rank #1
-- Tandoor King: 4.0★, 15 reviews, Starter plan ₹3,999/mo, PAID, area rank #4
+- Sharma Dental: 4.4★, 31 reviews, Review Management plan (Free beta), area rank #1, NPS 75
+- Spice Garden: 4.1★, 18 reviews, Reputation Scan plan (Free beta), area rank #3
+- Hotel Crown: 3.8★, 24 reviews, Review Management plan (Free beta), area rank #5
+- Prime Derma: 4.6★, 41 reviews, Review Management plan (Free beta), area rank #1
+- Tandoor King: 4.0★, 15 reviews, Reputation Scan plan (Free beta), area rank #4
 
 BUSINESS STATS:
-- Total MRR: ₹1,12,000/month
+- Total MRR: ₹0 (free beta period — paid plans launching post-beta)
 - Total reviews responded this month: 94%
 - Crisis alerts this month: 2 (both resolved)
 - Pending tasks: 3 reviews awaiting response
@@ -197,7 +197,7 @@ CLIENT DATA:
 - Area rank: #1 (was #6)
 - NPS score: 75 (world class)
 - Response rate: 100%
-- Plan: Growth (₹5,999/month)
+- Plan: Review Management (Free for now — beta period)
 - Next report: 1 April 2025
 - Recent negative: 1 review about wait time — responded to
 - Competitor: Smile Dental dropped to 3.8★ this week
