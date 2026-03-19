@@ -215,9 +215,83 @@ body{display:flex}
 ::-webkit-scrollbar{width:4px;height:4px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--bd);border-radius:99px}
+
+/* ── AUTH GATE OVERLAY ── */
+#auth-gate{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.55);backdrop-filter:blur(6px);align-items:center;justify-content:center}
+#auth-gate.show{display:flex;animation:fadeG .25s ease}
+@keyframes fadeG{from{opacity:0}to{opacity:1}}
+.gate-card{background:#fff;border-radius:20px;padding:48px 40px 40px;width:100%;max-width:420px;text-align:center;box-shadow:0 24px 80px rgba(0,0,0,0.2);animation:slideG .25s ease}
+@keyframes slideG{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.gate-logo{font-family:'Fraunces',serif;font-size:22px;font-weight:500;margin-bottom:16px}
+.gate-logo em{color:var(--g);font-style:italic}
+.gate-title{font-family:'Fraunces',serif;font-size:26px;font-weight:500;color:var(--tx);margin-bottom:8px}
+.gate-sub{color:var(--fa);font-size:14px;margin-bottom:28px;line-height:1.6}
+.google-btn{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;padding:13px 20px;border-radius:10px;border:1.5px solid var(--bd);background:#fff;font-size:15px;font-weight:500;color:var(--tx);cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
+.google-btn:hover{border-color:#4285f4;background:#f8f9ff;box-shadow:0 4px 16px rgba(66,133,244,.12)}
+.gate-note{font-size:12px;color:var(--fa);margin-top:16px;line-height:1.6}
+.gate-note a{color:var(--g);text-decoration:none}
+
+/* ── ONBOARDING OVERLAY ── */
+#onboarding{display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,0.5);backdrop-filter:blur(6px);align-items:center;justify-content:center}
+#onboarding.show{display:flex;animation:fadeG .25s ease}
+.ob-card{background:#fff;border-radius:20px;padding:44px 40px 40px;width:100%;max-width:480px;box-shadow:0 24px 80px rgba(0,0,0,0.2);animation:slideG .25s ease}
+.ob-step{font-size:11px;font-weight:600;color:var(--g);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+.ob-title{font-family:'Fraunces',serif;font-size:24px;font-weight:500;color:var(--tx);margin-bottom:6px}
+.ob-sub{font-size:14px;color:var(--fa);margin-bottom:24px;line-height:1.6}
+.ob-inp{width:100%;padding:12px 14px;border-radius:10px;border:1.5px solid var(--bd);font-size:14px;font-family:'DM Sans',sans-serif;color:var(--tx);outline:none;transition:border .2s;margin-bottom:10px}
+.ob-inp:focus{border-color:var(--g)}
+.ob-results{border:1.5px solid var(--bd);border-radius:10px;max-height:220px;overflow-y:auto;margin-bottom:14px;display:none}
+.ob-result{padding:12px 14px;cursor:pointer;border-bottom:1px solid var(--bd);transition:background .15s}
+.ob-result:last-child{border-bottom:none}
+.ob-result:hover{background:var(--gl)}
+.ob-result-name{font-size:13px;font-weight:600;color:var(--tx)}
+.ob-result-addr{font-size:11px;color:var(--fa);margin-top:2px}
+.ob-result-rating{font-size:11px;color:var(--a);margin-top:2px}
+.ob-selected{background:var(--gl);border:1.5px solid var(--g);border-radius:10px;padding:12px 14px;margin-bottom:14px;display:none}
+.ob-selected-name{font-size:13px;font-weight:600;color:var(--g)}
+.ob-selected-addr{font-size:11px;color:var(--fa);margin-top:2px}
+.ob-btn{width:100%;padding:12px;border-radius:10px;background:var(--g);color:#fff;border:none;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s}
+.ob-btn:hover{background:#155f44}
+.ob-btn:disabled{background:var(--bd);cursor:not-allowed}
+.ob-spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;margin-right:6px;vertical-align:middle}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ob-skip{font-size:12px;color:var(--fa);cursor:pointer;margin-top:12px;display:block;text-align:center}
+.ob-skip:hover{color:var(--tx)}
 </style>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
+
+<!-- ── AUTH GATE (shown if not logged in) ── -->
+<div id="auth-gate">
+  <div class="gate-card">
+    <div class="gate-logo">Colorcraft<em>AI</em></div>
+    <h2 class="gate-title">Client Portal</h2>
+    <p class="gate-sub">Sign in with the Google account linked to your ColorcraftAI subscription.</p>
+    <button class="google-btn" onclick="triggerGoogleLogin()">
+      <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.08 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-3.59-13.46-8.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+      Sign in with Google
+    </button>
+    <p class="gate-note">Not a client yet? <a href="index.html">Start your free trial →</a></p>
+  </div>
+</div>
+
+<!-- ── ONBOARDING (shown for new clients) ── -->
+<div id="onboarding">
+  <div class="ob-card">
+    <div class="ob-step">Step 1 of 1 — Setup</div>
+    <h2 class="ob-title">Find your business on Google</h2>
+    <p class="ob-sub">Search for your business name so we can start monitoring your reviews automatically.</p>
+    <input class="ob-inp" id="ob-search" type="text" placeholder="e.g. Sharma Dental Clinic, New Delhi" oninput="searchPlaces(this.value)">
+    <div class="ob-results" id="ob-results"></div>
+    <div class="ob-selected" id="ob-selected">
+      <div class="ob-selected-name" id="ob-sel-name"></div>
+      <div class="ob-selected-addr" id="ob-sel-addr"></div>
+    </div>
+    <button class="ob-btn" id="ob-btn" onclick="completeOnboarding()" disabled>Connect my business →</button>
+    <span class="ob-skip" onclick="skipOnboarding()">Skip for now — I'll do this later</span>
+  </div>
+</div>
 
 <!-- ════════════ SIDEBAR ════════════ -->
 <div class="sb">
@@ -828,8 +902,204 @@ rvs.forEach(rv=>{
 });
 
 // ── CONFIG ──────────────────────────────────────────────────────────────────
+const GOOGLE_CLIENT_ID = '448046661768-e2d881kgil35c50rtuoh5njgu168m0ab.apps.googleusercontent.com';
+const PLACES_API_KEY   = 'AIzaSyChY8cyVdCRSFV6DSM3Zii5C3rXn_GCDpM';
 const API = window.COLORCRAFTAI_API || '';
-const CLIENT_SLUG = 'sharma-dental'; // change per-client when deploying
+
+// ── CLIENT EMAIL → SLUG MAPPING ─────────────────────────────────────────────
+// In production this will come from Supabase. For now hardcoded.
+const CLIENT_MAP = {
+  'kapil.goela@googlemail.com': 'sharma-dental',
+  'sharmadentalclinic@gmail.com': 'sharma-dental',
+  'mehtadental@gmail.com': 'mehta-dental',
+  // Add more clients here as they sign up
+};
+
+let currentUser  = null;
+let selectedPlace = null;
+let placesService = null;
+let autocomplete  = null;
+
+// ── AUTH GATE ────────────────────────────────────────────────────────────────
+function showAuthGate() {
+  document.getElementById('auth-gate').classList.add('show');
+}
+function hideAuthGate() {
+  document.getElementById('auth-gate').classList.remove('show');
+}
+function showOnboarding() {
+  document.getElementById('onboarding').classList.add('show');
+  initPlacesAutocomplete();
+}
+function hideOnboarding() {
+  document.getElementById('onboarding').classList.remove('show');
+}
+
+function triggerGoogleLogin() {
+  if (!window.google) { alert('Loading… please try again in a moment.'); return; }
+  google.accounts.oauth2.initTokenClient({
+    client_id: GOOGLE_CLIENT_ID,
+    scope: 'openid email profile',
+    callback: (resp) => {
+      if (resp.access_token) fetchGoogleUser(resp.access_token);
+    },
+  }).requestAccessToken();
+}
+
+function fetchGoogleUser(token) {
+  fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+    headers: { Authorization: 'Bearer ' + token }
+  })
+  .then(r => r.json())
+  .then(user => {
+    currentUser = user;
+    sessionStorage.setItem('ccai_portal_user', JSON.stringify(user));
+    handleUserLogin(user);
+  })
+  .catch(() => alert('Sign-in failed. Please try again.'));
+}
+
+function handleUserLogin(user) {
+  hideAuthGate();
+  const slug = CLIENT_MAP[user.email?.toLowerCase()];
+  if (slug) {
+    // Known client → load their portal
+    loadPortalForClient(slug, user);
+  } else {
+    // Unknown client → show onboarding
+    showOnboarding();
+  }
+}
+
+function loadPortalForClient(slug, user) {
+  // Update topbar with user info
+  const tbBiz = document.querySelector('.tb-biz');
+  if (tbBiz && user) tbBiz.textContent = user.name || user.email;
+
+  // Update sidebar avatar if present
+  const avatarEls = document.querySelectorAll('.avatar, .user-avatar');
+  avatarEls.forEach(el => {
+    if (user.picture) el.innerHTML = `<img src="${user.picture}" style="width:100%;height:100%;border-radius:50%;object-fit:cover" referrerpolicy="no-referrer">`;
+  });
+
+  // Load client data from API (or fallback to demo data)
+  loadClientData(slug);
+}
+
+// ── PLACES AUTOCOMPLETE ───────────────────────────────────────────────────────
+function initPlacesAutocomplete() {
+  if (!window.google || !google.maps || !google.maps.places) {
+    // Load Maps JS API dynamically
+    const s = document.createElement('script');
+    s.src = `https://maps.googleapis.com/maps/api/js?key=${PLACES_API_KEY}&libraries=places&callback=onMapsLoaded`;
+    s.async = true; s.defer = true;
+    document.head.appendChild(s);
+    return;
+  }
+  setupAutocomplete();
+}
+
+window.onMapsLoaded = function() { setupAutocomplete(); };
+
+function setupAutocomplete() {
+  const input = document.getElementById('ob-search');
+  if (!input || !window.google) return;
+
+  autocomplete = new google.maps.places.Autocomplete(input, {
+    types: ['establishment'],
+    componentRestrictions: { country: 'in' },
+    fields: ['place_id','name','formatted_address','rating','user_ratings_total','geometry']
+  });
+
+  autocomplete.addListener('place_changed', () => {
+    const place = autocomplete.getPlace();
+    if (!place.place_id) return;
+
+    selectedPlace = place;
+
+    // Show selected business card
+    document.getElementById('ob-sel-name').textContent = place.name;
+    document.getElementById('ob-sel-addr').textContent = place.formatted_address || '';
+    document.getElementById('ob-selected').style.display = 'block';
+    document.getElementById('ob-results').style.display  = 'none';
+
+    // Enable connect button
+    const btn = document.getElementById('ob-btn');
+    btn.disabled = false;
+    btn.textContent = `Connect "${place.name}" →`;
+  });
+}
+
+function completeOnboarding() {
+  if (!selectedPlace) return;
+  const btn = document.getElementById('ob-btn');
+  btn.innerHTML = '<span class="ob-spinner"></span>Setting up your portal…';
+  btn.disabled = true;
+
+  // Save to sessionStorage (in production → save to Supabase)
+  const clientData = {
+    email: currentUser?.email,
+    name: currentUser?.name,
+    businessName: selectedPlace.name,
+    placeId: selectedPlace.place_id,
+    address: selectedPlace.formatted_address,
+    rating: selectedPlace.rating,
+    totalReviews: selectedPlace.user_ratings_total,
+    setupAt: new Date().toISOString()
+  };
+  sessionStorage.setItem('ccai_client_data', JSON.stringify(clientData));
+
+  // Update portal UI with real business name
+  setTimeout(() => {
+    hideOnboarding();
+    updatePortalWithPlaceData(clientData);
+    loadClientData('new-client');
+  }, 1200);
+}
+
+function skipOnboarding() {
+  hideOnboarding();
+  loadClientData('sharma-dental'); // demo data as fallback
+}
+
+function updatePortalWithPlaceData(data) {
+  // Update all business name references in the portal
+  document.querySelectorAll('.tb-biz, .sidebar-biz-name').forEach(el => {
+    el.textContent = data.businessName;
+  });
+  document.title = `ColorcraftAI — ${data.businessName}`;
+
+  // Update rating if available
+  if (data.rating) {
+    const scVal = document.querySelector('.sc-val');
+    if (scVal) scVal.textContent = data.rating.toFixed(1);
+    const scBar = document.querySelector('.sc-bar');
+    if (scBar) scBar.style.width = `${(data.rating / 5 * 100).toFixed(0)}%`;
+  }
+}
+
+// ── INIT ON PAGE LOAD ─────────────────────────────────────────────────────────
+(function init() {
+  // Check if already logged in (from index.html session)
+  const stored = sessionStorage.getItem('ccai_portal_user') || sessionStorage.getItem('ccai_user');
+  if (stored) {
+    try {
+      const user = JSON.parse(stored);
+      currentUser = user;
+      handleUserLogin(user);
+      return;
+    } catch(e) {}
+  }
+  // Not logged in → show gate
+  showAuthGate();
+})();
+
+// ── API ──────────────────────────────────────────────────────────────────────
+const CLIENT_SLUG = (function() {
+  const stored = sessionStorage.getItem('ccai_client_data');
+  if (stored) { try { return JSON.parse(stored).placeId || 'sharma-dental'; } catch(e) {} }
+  return 'sharma-dental';
+})();
 
 // ── HELPERS ─────────────────────────────────────────────────────────────────
 const timeAgo = iso => {
@@ -840,9 +1110,10 @@ const timeAgo = iso => {
 };
 
 // ── LOAD CLIENT DATA ─────────────────────────────────────────────────────────
-async function loadClientData() {
+async function loadClientData(slug) {
+  slug = slug || CLIENT_SLUG;
   try {
-    const res = await fetch(`${API}/api/client?slug=${CLIENT_SLUG}`);
+    const res = await fetch(`${API}/api/client?slug=${slug}`);
     const { client, reviews } = await res.json();
     if (!client) return;
 
@@ -973,7 +1244,7 @@ if(rpt) [['March 2025','Mar 1','var(--gl)'],['February 2025','Feb 1','var(--bl)'
 });
 
 // ── INIT ─────────────────────────────────────────────────────────────────────
-loadClientData();
+// loadClientData() is now called after auth check above
 
 </script>
 <script>window.CCAI_CHAT_MODE="client";window.CCAI_CHAT_SLUG="sharma-dental";</script>
