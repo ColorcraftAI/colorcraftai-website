@@ -282,7 +282,7 @@ body{display:flex}
     <div class="ob-step">Step 1 of 1 — Setup</div>
     <h2 class="ob-title">Find your business on Google</h2>
     <p class="ob-sub">Search for your business name so we can start monitoring your reviews automatically.</p>
-    <input class="ob-inp" id="ob-search" type="text" placeholder="e.g. Sharma Dental Clinic, New Delhi" oninput="searchPlaces(this.value)">
+    <input class="ob-inp" id="ob-search" type="text" placeholder="e.g. Sharma Dental Clinic, New Delhi" autocomplete="off">
     <div class="ob-results" id="ob-results"></div>
     <div class="ob-selected" id="ob-selected">
       <div class="ob-selected-name" id="ob-sel-name"></div>
@@ -988,22 +988,27 @@ function loadPortalForClient(slug, user) {
 
 // ── PLACES AUTOCOMPLETE ───────────────────────────────────────────────────────
 function initPlacesAutocomplete() {
-  if (!window.google || !google.maps || !google.maps.places) {
-    // Fetch the Maps JS API key from our secure backend proxy
-    fetch('/api/maps-key')
-      .then(r => r.json())
-      .then(data => {
-        const s = document.createElement('script');
-        s.src = `https://maps.googleapis.com/maps/api/js?key=${data.key}&libraries=places&callback=onMapsLoaded`;
-        s.async = true; s.defer = true;
-        document.head.appendChild(s);
-      })
-      .catch(() => {
-        // Fallback: show manual input if API fails
-        document.getElementById('ob-search').placeholder = 'Enter your Google Place ID manually';
-      });
+  // Always load Maps JS fresh — google.maps is different from google.accounts (GIS)
+  if (window.google && window.google.maps && window.google.maps.places) {
+    setupAutocomplete();
     return;
   }
+  // Fetch key from backend proxy then inject Maps JS
+  fetch('/api/maps-key')
+    .then(r => r.json())
+    .then(data => {
+      // Remove any existing Maps script to avoid duplicates
+      const existing = document.querySelector('script[src*="maps.googleapis.com/maps/api/js"]');
+      if (existing) existing.remove();
+      const s = document.createElement('script');
+      s.src = `https://maps.googleapis.com/maps/api/js?key=${data.key}&libraries=places&callback=onMapsLoaded`;
+      s.async = true;
+      document.head.appendChild(s);
+    })
+    .catch(() => {
+      document.getElementById('ob-search').placeholder = 'Could not load search — try refreshing';
+    });
+}
   setupAutocomplete();
 }
 
