@@ -925,8 +925,14 @@ function fetchUserInfo(token) {
   })
   .then(r => r.json())
   .then(user => {
+    if (!user || user.error) throw new Error('Invalid user response');
     sessionStorage.setItem('ccai_user', JSON.stringify(user));
     updateNavForUser(user);
+    closeAuth();
+    setTimeout(() => { window.location.href = 'portal.html'; }, 400);
+  })
+  .catch(() => {
+    // Fallback: still redirect to portal — it has its own auth gate
     closeAuth();
     setTimeout(() => { window.location.href = 'portal.html'; }, 400);
   });
